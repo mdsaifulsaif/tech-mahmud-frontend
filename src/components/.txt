@@ -1,0 +1,6 @@
+// AuthProvider.tsx
+<SessionProvider refetchInterval={5 * 60}> {/* প্রতি ৫ মিনিটে session refetch হবে */}
+    {children}
+</SessionProvider>
+এটা যোগ করলে user inactive থাকলেও প্রতি ৫ মিনিটে getSession() background এ কল হবে, যেটা jwt() callback ট্রিগার করবে এবং প্রয়োজনে refresh করে দেবে — আগে থেকেই token fresh রাখবে, user action নেওয়ার সময় delay/ব্যর্থতা কম হবে।
+এটা optional, কিন্তু better UX এর জন্য যোগ করাই ভালো — না হলে long-idle session এর প্রথম action এ একটা extra network round-trip (refresh call) এর কারণে সামান্য delay হতে পারে।

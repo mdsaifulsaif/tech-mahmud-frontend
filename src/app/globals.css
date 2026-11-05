@@ -1,0 +1,459 @@
+@import "tailwindcss";
+
+@theme {
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.25rem;
+  --radius-2xl: 0.25rem;
+  --radius-3xl: 0.25rem;
+  --radius: 0.25rem;
+  --color-primary: var(--theme-primary, var(--color-primary, #FF5A5A));
+  --color-secondary: var(--theme-secondary, var(--color-secondary, #FF8B5A));
+  --color-accent: var(--theme-accent, var(--color-accent, #FF8B5A));
+  --color-surface: var(--theme-surface, var(--color-surface, #F8FAFC));
+  --color-text-primary: var(--theme-text-primary, var(--color-text-primary, #1E293B));
+  --color-text-secondary: var(--theme-text-secondary, var(--color-text-secondary, #4B5966));
+  --color-text-muted: var(--theme-text-muted, var(--color-text-muted, #94A3B8));
+}
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+
+/* html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+} */
+
+#root, __next {
+  height: 100%;
+}
+
+/* ===== Typography ===== */
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-family, "Poppins", sans-serif);
+}
+
+/* Hide scrollbars globally when .no-scrollbar is used */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading, var(--font-family, "Poppins", sans-serif));
+}
+
+/* ===== CSS Variables System for Theme Customization ===== */
+:root {
+  /* Colors - Default Tech Mahmud theme */
+  --theme-primary: #FF5A5A;
+  --color-primary: #FF5A5A;
+  --theme-secondary: #FF8B5A;
+  --color-secondary: #FF8B5A;
+  --theme-accent: #FF6B6B;
+  --color-accent: #FF6B6B;
+  --theme-surface: #F8FAFC;
+  --color-surface: #F8FAFC;
+  --theme-text-primary: #1E293B;
+  --color-text-primary: #1E293B;
+  --theme-text-secondary: #4B5966;
+  --color-text-secondary: #4B5966;
+  --theme-text-muted: #94A3B8;
+  --color-text-muted: #94A3B8;
+  --color-background: #FFFFFF;
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+
+  /* Typography */
+  --font-family: 'Poppins', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+
+  /* Border Radius - Unified to sm */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.25rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
+
+
+
+
+
+/* ===== Base Styles ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+}
+
+
+
+/* ===== Typography ===== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* ===== Button Base Styles ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+/* ===== Container ===== */
+.container {
+  width: 100%;
+  max-width: 1536px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+/* ===== Input Styles ===== */
+.input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #E2E8F0;
+  border-radius: 0.25rem;
+  background-color: white;
+}
+
+.input:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 15%, transparent);
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ===== Selection ===== */
+::selection {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* ===== Dynamic Theme Helper Utilities ===== */
+.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.text-primary {
+  color: var(--color-primary) !important;
+}
+
+.border-primary {
+  border-color: var(--color-primary) !important;
+}
+
+.fill-primary {
+  fill: var(--color-primary) !important;
+}
+
+.stroke-primary {
+  stroke: var(--color-primary) !important;
+}
+
+.hover-bg-primary:hover {
+  background-color: var(--color-primary) !important;
+}
+
+.hover-text-primary:hover {
+  color: var(--color-primary) !important;
+}
+
+.hover-border-primary:hover {
+  border-color: var(--color-primary) !important;
+}
+
+.bg-primary-light {
+  background-color: color-mix(in srgb, var(--color-primary) 12%, white) !important;
+}
+
+.border-primary-light {
+  border-color: color-mix(in srgb, var(--color-primary) 25%, white) !important;
+}
+
+.btn-primary {
+  background-color: var(--color-primary) !important;
+  color: #ffffff !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  filter: brightness(0.92);
+}
+
+.btn-accent {
+  background-color: var(--color-accent) !important;
+  color: #ffffff !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-accent:hover {
+  filter: brightness(0.92);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary) !important;
+}
+
+.text-secondary {
+  color: var(--color-secondary) !important;
+}
+
+.border-secondary {
+  border-color: var(--color-secondary) !important;
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary) !important;
+  color: #ffffff !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-secondary:hover {
+  filter: brightness(0.92);
+}
+
+.btn-brand-gradient {
+  background: linear-gradient(135deg, var(--color-primary, #FF5A5A), var(--color-secondary, #FF8B5A)) !important;
+  color: #ffffff !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-brand-gradient:hover {
+  filter: brightness(0.94);
+  box-shadow: 0 4px 15px -2px rgba(255, 90, 90, 0.4);
+}
+
+.text-heading {
+  color: #0F172A !important;
+}
+
+.text-body {
+  color: #334155 !important;
+}
+
+.text-muted {
+  color: #64748B !important;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+
+  to {
+    opacity: 1;
+    max-height: 1000px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.4s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+/* ===== Hover Effects ===== */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Line Clamp ===== */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
