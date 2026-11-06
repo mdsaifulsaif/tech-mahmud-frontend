@@ -456,7 +456,10 @@ const ProductModal: React.FC<ProductModalProps> = ({ product: initialProduct, on
 
   /* ---------- WhatsApp Order ---------- */
   const handleWhatsAppOrder = () => {
-    if (!product) return;
+    if (!product || !inStock) {
+      toast.error("This product is currently out of stock");
+      return;
+    }
     const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '8801604321819';
 
     const variantText = selectedVariant
@@ -759,11 +762,14 @@ const ProductModal: React.FC<ProductModalProps> = ({ product: initialProduct, on
                 {/* WhatsApp Order Button */}
                 <button
                   type="button"
+                  disabled={!inStock}
                   onClick={handleWhatsAppOrder}
-                  className="mt-2.5 sm:mt-3 w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2.5 shadow-sm hover:shadow transition-all duration-200 cursor-pointer active:scale-[0.99]"
+                  className="mt-2.5 sm:mt-3 w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2.5 shadow-sm hover:shadow transition-all duration-200 cursor-pointer active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:shadow-none"
                 >
                   <FaWhatsapp size={22} className="text-white flex-shrink-0" />
-                  <span className="text-sm sm:text-base font-semibold whitespace-nowrap">Order via WhatsApp</span>
+                  <span className="text-sm sm:text-base font-semibold whitespace-nowrap">
+                    {inStock ? "Order via WhatsApp" : "Out of Stock (WhatsApp)"}
+                  </span>
                 </button>
 
                 {/* End of purchase options */}

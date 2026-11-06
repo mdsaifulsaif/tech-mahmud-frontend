@@ -174,14 +174,23 @@ export default function WishlistPage() {
                       </div>
 
                       <button
-                        onClick={() => handleAddToCart(item)}
-                        className={`w-full py-2 rounded-sm text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs ${
-                          inCart
-                            ? "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
-                            : "bg-[var(--color-primary)] hover:opacity-90 text-white"
+                        type="button"
+                        disabled={item.stock !== undefined && item.stock <= 0}
+                        onClick={() => {
+                          if (item.stock !== undefined && item.stock <= 0) return;
+                          handleAddToCart(item);
+                        }}
+                        className={`w-full py-2 rounded-sm text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs ${
+                          item.stock !== undefined && item.stock <= 0
+                            ? "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200"
+                            : inCart
+                            ? "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 cursor-pointer"
+                            : "bg-[var(--color-primary)] hover:opacity-90 text-white cursor-pointer"
                         }`}
                       >
-                        {inCart ? (
+                        {item.stock !== undefined && item.stock <= 0 ? (
+                          <span>Out of Stock</span>
+                        ) : inCart ? (
                           <>
                             <FiCheck size={13} /> In Cart (+1)
                           </>

@@ -210,11 +210,25 @@ function CheckoutContent() {
     }
 
     try {
+      const currentUserId =
+        (session?.user as any)?._id ||
+        (session?.user as any)?.id ||
+        undefined;
+
       const res = await applyCouponMutation({
         couponCode: code,
         subtotal,
+        userID: currentUserId,
         orderItems: items.map((i: any) => ({
           productID: i.productID || i._id || i.id,
+          categoryID: i.categoryID || i.category,
+          unitPrice: i.price,
+          quantity: i.quantity,
+          totalPrice: i.price * i.quantity,
+        })),
+        items: items.map((i: any) => ({
+          productID: i.productID || i._id || i.id,
+          categoryID: i.categoryID || i.category,
           unitPrice: i.price,
           quantity: i.quantity,
           totalPrice: i.price * i.quantity,

@@ -433,6 +433,11 @@ export default function ProductDetailsClient({ slug }: ProductDetailsClientProps
   };
 
   const handleWhatsAppOrder = () => {
+    if (!isInStock) {
+      toast.error("This product is currently out of stock");
+      return;
+    }
+
     const phone =
       process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801604321819";
     const currentUrl =
@@ -1019,10 +1024,10 @@ export default function ProductDetailsClient({ slug }: ProductDetailsClientProps
                       type="button"
                       disabled={!isInStock}
                       onClick={handleBuyNow}
-                      className="w-full py-3.5 px-6 rounded-xl font-bold text-sm tracking-wide text-white bg-[var(--color-primary)] hover:brightness-95 active:scale-[0.99] transition shadow-md flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full py-3.5 px-6 rounded-xl font-bold text-sm tracking-wide text-white bg-[var(--color-primary)] hover:brightness-95 active:scale-[0.99] transition shadow-md flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:shadow-none"
                     >
                       <FiZap size={17} />
-                      <span>Buy Now (অর্ডার করুন)</span>
+                      <span>{isInStock ? "Buy Now (অর্ডার করুন)" : "Out of Stock"}</span>
                     </button>
 
                     {/* Add to Cart Button */}
@@ -1030,10 +1035,10 @@ export default function ProductDetailsClient({ slug }: ProductDetailsClientProps
                       type="button"
                       disabled={!isInStock}
                       onClick={handleAddToCart}
-                      className="w-full py-3.5 px-6 rounded-xl font-bold text-sm tracking-wide text-[var(--color-primary)] bg-[var(--color-primary)]/10 hover:bg-[var(--color-primary)]/20 active:scale-[0.99] transition border border-[var(--color-primary)]/30 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full py-3.5 px-6 rounded-xl font-bold text-sm tracking-wide text-[var(--color-primary)] bg-[var(--color-primary)]/10 hover:bg-[var(--color-primary)]/20 active:scale-[0.99] transition border border-[var(--color-primary)]/30 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200"
                     >
                       <FiShoppingBag size={17} />
-                      <span>Add to Cart (কার্টে যোগ করুন)</span>
+                      <span>{isInStock ? "Add to Cart (কার্টে যোগ করুন)" : "Out of Stock"}</span>
                     </button>
                   </div>
 
@@ -1041,11 +1046,12 @@ export default function ProductDetailsClient({ slug }: ProductDetailsClientProps
                   <div className="flex items-center gap-3">
                     <button
                       type="button"
+                      disabled={!isInStock}
                       onClick={handleWhatsAppOrder}
-                      className="flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition flex items-center justify-center gap-2"
+                      className="flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200"
                     >
-                      <FaWhatsapp size={16} className="text-emerald-600" />
-                      <span>Order via WhatsApp</span>
+                      <FaWhatsapp size={16} className={isInStock ? "text-emerald-600" : "text-gray-400"} />
+                      <span>{isInStock ? "Order via WhatsApp" : "Out of Stock"}</span>
                     </button>
 
                     <button
@@ -1540,7 +1546,7 @@ export default function ProductDetailsClient({ slug }: ProductDetailsClientProps
             type="button"
             disabled={!isInStock}
             onClick={handleAddToCart}
-            className="px-3.5 py-2.5 rounded-xl font-bold text-xs text-[var(--color-primary)] bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/30 active:scale-95 transition"
+            className="px-3.5 py-2.5 rounded-xl font-bold text-xs text-[var(--color-primary)] bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/30 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200"
           >
             <FiShoppingBag size={16} />
           </button>
@@ -1548,10 +1554,10 @@ export default function ProductDetailsClient({ slug }: ProductDetailsClientProps
             type="button"
             disabled={!isInStock}
             onClick={handleBuyNow}
-            className="flex-1 max-w-[180px] py-2.5 px-4 rounded-xl font-bold text-xs text-white bg-[var(--color-primary)] hover:brightness-95 active:scale-95 transition shadow-sm flex items-center justify-center gap-1.5"
+            className="flex-1 max-w-[180px] py-2.5 px-4 rounded-xl font-bold text-xs text-white bg-[var(--color-primary)] hover:brightness-95 active:scale-95 transition shadow-sm flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:shadow-none"
           >
             <FiZap size={15} />
-            <span>Buy Now</span>
+            <span>{isInStock ? "Buy Now" : "Out of Stock"}</span>
           </button>
         </div>
       </div>

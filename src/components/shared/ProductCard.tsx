@@ -288,42 +288,44 @@ const ProductCard: React.FC<ProductCardProps> = ({
           {productName}
         </Link>
 
-        {/* Subtle Quick Add / In Cart Indicator on hover or mobile */}
-        {isInStock && (
-          <div className="mt-2.5 pt-2 border-t border-gray-100 w-full flex items-center justify-center">
-            {quantity === 0 ? (
+        {/* Subtle Quick Add / In Cart / Out of Stock Indicator */}
+        <div className="mt-2.5 pt-2 border-t border-gray-100 w-full flex items-center justify-center">
+          {!isInStock ? (
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-bold text-gray-400 bg-gray-100 cursor-not-allowed">
+              Out of Stock
+            </span>
+          ) : quantity === 0 ? (
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold text-[#FF5A5A] hover:text-white bg-[#FF5A5A]/10 hover:bg-[#FF5A5A] transition-all active:scale-95 cursor-pointer"
+            >
+              <FiShoppingBag size={12} />
+              <span>Add to Cart</span>
+            </button>
+          ) : (
+            <div className="inline-flex items-center gap-2 px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-200">
               <button
                 type="button"
-                onClick={handleAddToCart}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold text-[#FF5A5A] hover:text-white bg-[#FF5A5A]/10 hover:bg-[#FF5A5A] transition-all active:scale-95"
+                onClick={handleDecrease}
+                className="w-5 h-5 flex items-center justify-center font-black text-emerald-700 hover:bg-emerald-100 rounded text-xs cursor-pointer"
               >
-                <FiShoppingBag size={12} />
-                <span>Add to Cart</span>
+                -
               </button>
-            ) : (
-              <div className="inline-flex items-center gap-2 px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-200">
-                <button
-                  type="button"
-                  onClick={handleDecrease}
-                  className="w-5 h-5 flex items-center justify-center font-black text-emerald-700 hover:bg-emerald-100 rounded text-xs"
-                >
-                  -
-                </button>
-                <span className="text-xs font-bold text-emerald-800 px-1">
-                  {quantity} in cart
-                </span>
-                <button
-                  type="button"
-                  onClick={handleIncrease}
-                  disabled={quantity >= totalStock}
-                  className="w-5 h-5 flex items-center justify-center font-black text-emerald-700 hover:bg-emerald-100 rounded text-xs disabled:opacity-30"
-                >
-                  +
-                </button>
-              </div>
-            )}
-          </div>
-        )}
+              <span className="text-xs font-bold text-emerald-800 px-1">
+                {quantity} in cart
+              </span>
+              <button
+                type="button"
+                onClick={handleIncrease}
+                disabled={quantity >= totalStock}
+                className="w-5 h-5 flex items-center justify-center font-black text-emerald-700 hover:bg-emerald-100 rounded text-xs disabled:opacity-30 cursor-pointer"
+              >
+                +
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
