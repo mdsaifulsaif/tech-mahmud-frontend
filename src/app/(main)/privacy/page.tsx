@@ -1,16 +1,25 @@
 import React from "react";
 import Link from "next/link";
 import { Metadata } from "next";
-import { FiChevronRight, FiShield, FiLock, FiMail, FiPhone } from "react-icons/fi";
+import {
+  FiChevronRight,
+  FiShield,
+  FiLock,
+  FiMail,
+  FiPhone,
+  FiDatabase,
+  FiUserCheck,
+  FiCheckCircle,
+} from "react-icons/fi";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Tech Mahmud - Protecting Your Data",
+  title: "Privacy Policy | Tech Mahmud - Protecting Your Personal Information",
   description:
-    "Tech Mahmud's Privacy Policy outlines how we collect, protect, and handle your personal information when using our online tech & lifestyle delivery service in Dhaka, Bangladesh.",
+    "Tech Mahmud's Privacy Policy explains how we collect, protect, and handle your personal data when ordering authentic tech gadgets, electronics, and lifestyle products in Bangladesh.",
 };
 
 export default function PrivacyPolicyPage() {
-  const lastUpdated = "October 2026";
+  const lastUpdated = "November 2026";
 
   return (
     <div className="bg-white min-h-screen font-['Poppins']">
@@ -33,7 +42,7 @@ export default function PrivacyPolicyPage() {
             </h1>
           </div>
           <p className="text-gray-500 text-xs sm:text-sm mt-2">
-            Last Updated: {lastUpdated} • Applies to all users and visitors of Tech Mahmud
+            Last Updated: {lastUpdated} • Applies to all users and customers of Tech Mahmud
           </p>
         </div>
       </div>
@@ -44,13 +53,13 @@ export default function PrivacyPolicyPage() {
           {/* Section 1 */}
           <section className="bg-gray-50/70 p-6 sm:p-8 rounded-2xl border border-gray-100">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <span className="text-[var(--color-primary)] font-mono text-lg">01.</span> Introduction
+              <span className="text-[var(--color-primary)] font-mono text-lg">01.</span> Commitment to Your Privacy
             </h2>
             <p>
-              Welcome to <strong>Tech Mahmud</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;). We respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, mobile application, or use our tech & lifestyle ordering and delivery services in Dhaka, Bangladesh.
+              Welcome to <strong>Tech Mahmud</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;). We are deeply dedicated to maintaining your trust by protecting the personal information you share with us. This Privacy Policy details our practices concerning data collection, storage, processing, and protection across our website, web platform, and nationwide e-commerce services in Bangladesh.
             </p>
             <p className="mt-3">
-              By accessing or using Tech Mahmud, you agree to the collection and use of information in accordance with this policy. If you do not agree with any part of this policy, please refrain from using our services.
+              By accessing Tech Mahmud, creating an account, or placing an order for electronics, gadgets, or apparel, you consent to the practices described herein.
             </p>
           </section>
 
@@ -59,38 +68,53 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2">
               <span className="text-[var(--color-primary)] font-mono text-lg">02.</span> Information We Collect
             </h2>
-            <p>We collect information to provide, maintain, and improve our daily tech & lifestyle delivery operations:</p>
+            <p>We only collect data strictly necessary to fulfill your orders, provide warranty support, and improve your shopping experience:</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div className="p-5 bg-white rounded-xl border border-gray-200">
-                <h3 className="font-bold text-gray-900 text-base mb-2">Personal Identification</h3>
+                <div className="flex items-center gap-2 mb-2 text-gray-900 font-bold text-base">
+                  <FiUserCheck className="text-[var(--color-primary)]" />
+                  <h3>Personal & Account Information</h3>
+                </div>
                 <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm text-gray-600">
-                  <li>Full Name and contact telephone / mobile number</li>
-                  <li>Email address (for receipts and account communication)</li>
-                  <li>Account login credentials</li>
+                  <li>Full name and account credentials</li>
+                  <li>Active mobile phone number (for OTP and delivery coordination)</li>
+                  <li>Email address (for order receipts, serial numbers & warranty records)</li>
                 </ul>
               </div>
+
               <div className="p-5 bg-white rounded-xl border border-gray-200">
-                <h3 className="font-bold text-gray-900 text-base mb-2">Delivery & Location Information</h3>
+                <div className="flex items-center gap-2 mb-2 text-gray-900 font-bold text-base">
+                  <FiDatabase className="text-[var(--color-primary)]" />
+                  <h3>Nationwide Shipping & Address</h3>
+                </div>
                 <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm text-gray-600">
-                  <li>Detailed doorstep delivery address & area (e.g., Dhaka City wards)</li>
-                  <li>Nearby landmarks and specific delivery notes</li>
-                  <li>GPS location (optional, with your explicit permission)</li>
+                  <li>Complete street address, division, district, and thana</li>
+                  <li>Local landmark instructions for courier delivery personnel</li>
+                  <li>Alternative recipient contact details if designated</li>
                 </ul>
               </div>
+
               <div className="p-5 bg-white rounded-xl border border-gray-200">
-                <h3 className="font-bold text-gray-900 text-base mb-2">Order & Payment Data</h3>
+                <div className="flex items-center gap-2 mb-2 text-gray-900 font-bold text-base">
+                  <FiLock className="text-[var(--color-primary)]" />
+                  <h3>Payment & Transaction Details</h3>
+                </div>
                 <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm text-gray-600">
-                  <li>Items ordered, quantities, and order history</li>
-                  <li>Selected payment method (Cash on Delivery, bKash, Nagad, Card)</li>
-                  <li>Transaction reference numbers (We do NOT store payment PINs or card CVVs)</li>
+                  <li>Selected payment mode: Cash on Delivery (COD), bKash, Nagad, Cards</li>
+                  <li>Gateway transaction reference IDs and order invoices</li>
+                  <li><strong>Notice:</strong> We do NOT store debit/credit card CVVs or MFS PIN numbers</li>
                 </ul>
               </div>
+
               <div className="p-5 bg-white rounded-xl border border-gray-200">
-                <h3 className="font-bold text-gray-900 text-base mb-2">Device & Usage Details</h3>
+                <div className="flex items-center gap-2 mb-2 text-gray-900 font-bold text-base">
+                  <FiShield className="text-[var(--color-primary)]" />
+                  <h3>Technical & Session Data</h3>
+                </div>
                 <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm text-gray-600">
-                  <li>IP address, browser type, and operating system</li>
-                  <li>Pages visited, time spent, and referral sources</li>
-                  <li>Session cookies to maintain your shopping cart</li>
+                  <li>IP address, browser type, device information, and screen resolution</li>
+                  <li>Session cookies to maintain cart contents and user preferences</li>
+                  <li>Order history and reward point balances</li>
                 </ul>
               </div>
             </div>
@@ -101,91 +125,95 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2">
               <span className="text-[var(--color-primary)] font-mono text-lg">03.</span> How We Use Your Information
             </h2>
-            <p>We use the collected information for the following legitimate business purposes:</p>
-            <ul className="list-disc list-inside space-y-2 text-sm sm:text-base text-gray-600 pl-2">
-              <li><strong>Order Processing & Fulfillment:</strong> Preparing, sorting, packing, and dispatching fresh vegetables and groceries to your doorstep.</li>
-              <li><strong>Delivery Routing & Communication:</strong> Dispatching delivery couriers and sending real-time SMS, WhatsApp, or phone updates regarding order status.</li>
-              <li><strong>Customer Support:</strong> Responding to inquiries, resolving replacement requests, or processing eligible refunds quickly.</li>
-              <li><strong>Personalized Experience:</strong> Recommending frequently purchased kitchen staples and notifying you of seasonal harvests and special promotions.</li>
-              <li><strong>Security & Fraud Prevention:</strong> Protecting our platform and customers against fraudulent orders or unauthorized account access.</li>
+            <p>Your information is used strictly for legitimate commercial and customer-support purposes:</p>
+            <ul className="list-disc list-inside space-y-1.5 text-gray-600 pl-2">
+              <li><strong>Order Processing & Dispatch:</strong> Verifying product availability, printing serial numbers, packing, and dispatching your items.</li>
+              <li><strong>Courier Coordination:</strong> Handing over contact and shipping details to verified logistics partners (Steadfast, Pathao, RedX) for parcel delivery across Bangladesh.</li>
+              <li><strong>Official Warranty Registration:</strong> Documenting product serial numbers and invoices to facilitate manufacturer warranty service.</li>
+              <li><strong>Customer Support:</strong> Responding to inquiries, replacement claims, order tracking, and troubleshooting assistance.</li>
+              <li><strong>Fraud Prevention:</strong> Monitoring suspicious transactions to protect customers and prevent unauthorized order placement.</li>
             </ul>
           </section>
 
           {/* Section 4 */}
           <section className="space-y-3">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2">
-              <span className="text-[var(--color-primary)] font-mono text-lg">04.</span> Sharing of Information
+              <span className="text-[var(--color-primary)] font-mono text-lg">04.</span> Sharing & Third-Party Disclosure
             </h2>
             <p>
-              <strong>We never sell, rent, or trade your personal information to third-party marketing companies.</strong> We only share information with trusted parties strictly necessary for our services:
+              <strong>We do not sell, rent, or trade your personal information to third parties.</strong> Data is shared only under strict operational safeguards:
             </p>
-            <ul className="list-disc list-inside space-y-2 text-sm sm:text-base text-gray-600 pl-2">
-              <li><strong>Assigned Delivery Riders:</strong> Provided only with your name, phone number, and delivery address to complete your doorstep delivery.</li>
-              <li><strong>Payment Service Providers:</strong> Regulated payment gateways (such as bKash, Nagad, SSLCommerz) to process cashless transactions securely.</li>
-              <li><strong>Legal Authorities:</strong> When required by Bangladeshi law, judicial proceedings, or to protect the safety and property of Tech Mahmud and our users.</li>
-            </ul>
+            <div className="space-y-2 mt-2">
+              <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                <h4 className="font-bold text-gray-900 text-sm">Logistics & Courier Services</h4>
+                <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                  We provide your recipient name, address, and mobile number to reputable courier services exclusively to deliver your parcel and collect COD payments.
+                </p>
+              </div>
+              <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                <h4 className="font-bold text-gray-900 text-sm">Licensed Payment Gateways</h4>
+                <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                  Card and mobile banking transactions are processed securely through PCI-DSS compliant payment gateways with bank-grade encryption.
+                </p>
+              </div>
+              <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                <h4 className="font-bold text-gray-900 text-sm">Legal & Law Enforcement Obligations</h4>
+                <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                  We may disclose information if required by the laws of Bangladesh or valid court subpoenas to protect against fraud, public harm, or crime.
+                </p>
+              </div>
+            </div>
           </section>
 
           {/* Section 5 */}
-          <section className="p-6 sm:p-8 rounded-2xl bg-emerald-50/50 border border-emerald-100 space-y-3">
-            <div className="flex items-center gap-2 text-emerald-800 font-bold text-lg">
-              <FiLock size={20} />
-              <span>05. Data Security & Storage</span>
-            </div>
-            <p className="text-gray-700 text-sm sm:text-base">
-              We employ strict technical and organizational measures to safeguard your personal information:
+          <section className="space-y-3">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2">
+              <span className="text-[var(--color-primary)] font-mono text-lg">05.</span> Data Security & Storage
+            </h2>
+            <p>
+              We implement industry-standard technical measures, including HTTPS encryption (SSL/TLS), hashed passwords, firewalls, and restricted administrative database access. While no internet transmission is 100% immune from risks, we continuously monitor and upgrade our infrastructure to protect your personal information.
             </p>
-            <ul className="list-disc list-inside space-y-1.5 text-xs sm:text-sm text-gray-700">
-              <li>HTTPS and 256-bit SSL encryption across all web traffic.</li>
-              <li>Secure cloud databases with strict access-control protocols.</li>
-              <li>We never store debit/credit card PINs, passwords, or bKash PINs on our servers.</li>
-            </ul>
           </section>
 
           {/* Section 6 */}
           <section className="space-y-3">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2">
-              <span className="text-[var(--color-primary)] font-mono text-lg">06.</span> Cookies & Local Storage
+              <span className="text-[var(--color-primary)] font-mono text-lg">06.</span> Your Rights & Control
             </h2>
-            <p>
-              We use standard session cookies and browser local storage to maintain items in your shopping cart, preserve your login session, and understand how visitors interact with our platform. You can configure your browser to reject cookies, but certain features (like your cart memory) may not function properly.
-            </p>
-          </section>
-
-          {/* Section 7 */}
-          <section className="space-y-3">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2">
-              <span className="text-[var(--color-primary)] font-mono text-lg">07.</span> Your Rights & Control
-            </h2>
-            <p>As a Tech Mahmud customer, you have full control over your data:</p>
-            <ul className="list-disc list-inside space-y-1.5 text-sm sm:text-base text-gray-600 pl-2">
-              <li><strong>Access & Update:</strong> You can review and update your name, address, and contact details from your Profile page at any time.</li>
-              <li><strong>Opt-Out of Marketing:</strong> You may unsubscribe from promotional newsletters and SMS messages at any time.</li>
-              <li><strong>Account Deletion:</strong> You may request the permanent deletion of your account and personal records by contacting our support team.</li>
+            <p>As a valued Tech Mahmud customer, you retain full rights over your data:</p>
+            <ul className="list-disc list-inside space-y-1.5 text-gray-600 pl-2">
+              <li>Access and review your profile details and full order history from your dashboard.</li>
+              <li>Update or correct your shipping addresses, contact numbers, and passwords anytime.</li>
+              <li>Request full account deletion or data anonymization by contacting our support team.</li>
+              <li>Opt-out of promotional SMS or email newsletters while retaining transactional order alerts.</li>
             </ul>
           </section>
 
-          {/* Section 8 */}
-          <section className="bg-gray-50/70 p-6 sm:p-8 rounded-2xl border border-gray-100">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">08. Contact Our Privacy Team</h2>
-            <p className="text-sm text-gray-600 mb-4">
-              If you have any questions, concerns, or requests regarding this Privacy Policy, please reach out to us:
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 text-sm text-gray-700">
-              <div className="flex items-center gap-2">
-                <FiMail className="text-[var(--color-primary)]" />
-                <a href="mailto:support@techmahmud.com" className="font-semibold hover:underline">
-                  support@techmahmud.com
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <FiPhone className="text-[var(--color-primary)]" />
-                <a href="tel:01783176838" className="font-semibold hover:underline">
-                  +880 1783-176838
-                </a>
-              </div>
+          {/* Contact Box */}
+          <div className="p-6 sm:p-8 bg-blue-50/70 border border-blue-100 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div>
+              <h3 className="text-lg font-bold text-gray-900">Have Questions About Your Privacy?</h3>
+              <p className="text-gray-600 text-xs sm:text-sm mt-1">
+                Our Data Protection & Customer Support Team is ready to assist you anytime.
+              </p>
             </div>
-          </section>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href="mailto:support@techmahmud.com"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-xs font-bold text-gray-700 hover:text-[var(--color-primary)] transition"
+              >
+                <FiMail size={14} />
+                <span>support@techmahmud.com</span>
+              </a>
+              <a
+                href="tel:01783176838"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--color-primary)] text-white text-xs font-bold hover:bg-[#e04848] transition shadow-xs"
+              >
+                <FiPhone size={14} />
+                <span>01783176838</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

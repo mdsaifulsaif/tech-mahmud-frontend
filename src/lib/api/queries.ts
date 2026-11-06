@@ -41,10 +41,14 @@ async function apiFetch<T>(
 export interface IBannerItem {
   _id: string;
   title?: string;
+  subtitle?: string;
   image: string;
   mobileImage?: string;
   link?: string;
-  placement?: "slider" | "side_top" | "side_middle" | "side_bottom" | "popup";
+  categoryID?: any;
+  categorySlug?: string;
+  placement?: string;
+  slot?: "left" | "right_top" | "right_bottom" | string;
   order?: number;
   isActive: boolean;
 }
@@ -60,14 +64,28 @@ export const useBannersQuery = (placement?: string) => {
 /* ==========================================================================
    CATEGORY & BRAND QUERIES
    ========================================================================== */
-export const useCategoriesQuery = (params?: { limit?: number; isFeatured?: boolean; status?: string }) => {
+export const useCategoriesQuery = (params?: {
+  limit?: number;
+  isFeatured?: boolean;
+  isTrending?: boolean;
+  status?: string;
+}) => {
   const limit = params?.limit || 50;
   const isFeaturedParam = params?.isFeatured !== undefined ? `&isFeatured=${params.isFeatured}` : "";
+  const isTrendingParam = params?.isTrending !== undefined ? `&isTrending=${params.isTrending}` : "";
   const statusParam = params?.status ? `&status=${params.status}` : "&status=active";
   return useQuery<any>({
-    queryKey: ["categories", limit, params?.isFeatured, params?.status],
+    queryKey: ["categories", limit, params?.isFeatured, params?.isTrending, params?.status],
     queryFn: () =>
-      apiFetch(`/categories?isDeleted=false&limit=${limit}${statusParam}${isFeaturedParam}`),
+      apiFetch(`/categories?isDeleted=false&limit=${limit}${statusParam}${isFeaturedParam}${isTrendingParam}`),
+  });
+};
+
+export const useCategoryTreeQuery = (status: string = "active") => {
+  return useQuery<any>({
+    queryKey: ["categories", "tree", status],
+    queryFn: () => apiFetch(`/categories/tree?status=${status}`),
+    staleTime: 1000 * 60 * 5,
   });
 };
 

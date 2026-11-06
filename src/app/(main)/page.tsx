@@ -1,4 +1,12 @@
-import { Hero, HomeCategory, NewCollection, TrendingNow } from "@/components/home";
+import {
+  Hero,
+  HomeCategory,
+  NewCollection,
+  PromotionalBanners,
+  PromotionalTwoBanners,
+  BottomPromoSection,
+  TrendingNow,
+} from "@/components/home";
 import Faq from "@/components/home/Faq";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import HappyCustomers from "@/components/home/Happycustomers";
@@ -9,7 +17,7 @@ export default async function Home() {
   const [
     bannersData,
     categoriesData,
-    homeCategoriesData,
+    trendingCategoriesData,
     brandsData,
     featuredData,
     newCollectionData,
@@ -19,7 +27,7 @@ export default async function Home() {
     serverFetch<any>("/categories?status=active&isDeleted=false&limit=20", {
       tags: ["categories"],
     }),
-    serverFetch<any>("/categories?showInHome=true&status=active&isDeleted=false&limit=6", {
+    serverFetch<any>("/categories?isTrending=true&status=active&isDeleted=false&limit=15", {
       tags: ["categories"],
     }),
     serverFetch<any>("/brands?status=active&isDeleted=false&limit=30", {
@@ -35,12 +43,15 @@ export default async function Home() {
       <Hero initialBanners={bannersData?.data || []} />
       <HomeCategory initialCategories={categoriesData?.data} />
       <NewCollection initialProducts={newCollectionData?.data} />
+      <PromotionalBanners initialBanners={bannersData?.data || []} />
       <TrendingNow
         initialBanners={bannersData?.data || []}
-        initialHomeCategories={homeCategoriesData?.data || []}
+        initialTrendingCategories={trendingCategoriesData?.data || []}
         allCategories={categoriesData?.data || []}
       />
+      <PromotionalTwoBanners initialBanners={bannersData?.data || []} />
       <FeaturedProducts initialProducts={featuredData?.data} />
+      <BottomPromoSection initialBanners={bannersData?.data || []} />
 
       {/* <TrustedBrands initialBrands={brandsData?.data} /> */}
       {/* <HappyCustomers initialReviews={reviewsData?.data} /> */}

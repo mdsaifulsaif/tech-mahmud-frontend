@@ -399,7 +399,6 @@ const OurCommitment: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="From Barisal, For Barisal"
-          description="We are committed to bringing you the freshest products, fastest delivery and best service every day."
           icon={<BiLeaf size={18} />}
           actionLabel="Learn more"
           onAction={() => router.push("/about")}

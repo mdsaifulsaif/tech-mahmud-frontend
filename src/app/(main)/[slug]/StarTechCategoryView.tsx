@@ -270,45 +270,29 @@ export default function StarTechCategoryView({ slug }: StarTechCategoryViewProps
   return (
     <div className="bg-[#F8FAFC] min-h-screen pb-16">
       {/* ============================================================ */}
-      {/* 1. BREADCRUMBS (Star Tech Style)                             */}
+      {/* 1. BREADCRUMBS (Clean & Professional, No Background Box)    */}
       {/* ============================================================ */}
-      <div className="bg-white border-b border-gray-200/90 py-3 shadow-2xs">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center flex-wrap gap-2 text-xs sm:text-sm text-gray-500">
-            <Link href="/" className="hover:text-[var(--color-primary)] transition font-medium">
-              Home
-            </Link>
-            <FiChevronRight className="text-gray-400 text-xs shrink-0" />
-            {isBrandPage && (
-              <>
-                <Link href="/brands" className="hover:text-[var(--color-primary)] transition font-medium">
-                  Brands
-                </Link>
-                <FiChevronRight className="text-gray-400 text-xs shrink-0" />
-              </>
-            )}
-            <span className="text-gray-900 font-bold">{pageTitle}</span>
-          </nav>
-        </div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2">
+        <nav className="flex items-center flex-wrap gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-500">
+          <Link href="/" className="hover:text-[var(--color-primary)] transition font-medium">
+            Home
+          </Link>
+          <FiChevronRight className="text-gray-400 text-xs shrink-0" />
+          {isBrandPage && (
+            <>
+              <Link href="/brands" className="hover:text-[var(--color-primary)] transition font-medium">
+                Brands
+              </Link>
+              <FiChevronRight className="text-gray-400 text-xs shrink-0" />
+            </>
+          )}
+          <span className="text-gray-800 font-semibold">{pageTitle}</span>
+        </nav>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-5 sm:pt-7">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-2 sm:pt-3">
         {/* ============================================================ */}
-        {/* 2. CATEGORY HEADING & SUB-DESCRIPTION (Star Tech Style)      */}
-        {/* ============================================================ */}
-        <div className="mb-5">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight">
-            {pageTitle}
-          </h1>
-          <p className="text-xs sm:text-sm text-gray-600 mt-1.5 max-w-4xl leading-relaxed">
-            {categoryBrands.length > 0
-              ? `${categoryBrands.slice(0, 8).map((b) => b.name).join(", ")} and more top brands in Bangladesh at Tech Mahmud. Get original quality, official warranty, and fast delivery across Bangladesh.`
-              : `Explore latest ${pageTitle} collection with authentic warranty and lowest prices in Bangladesh.`}
-          </p>
-        </div>
-
-        {/* ============================================================ */}
-        {/* 3. HORIZONTAL BRAND PILLS STRIP (Star Tech Signature)        */}
+        {/* 2. HORIZONTAL BRAND PILLS STRIP (Star Tech Signature)        */}
         {/* As requested: "r ekhaen oi category er brand gual eivaee asbe" */}
         {/* ============================================================ */}
         {categoryBrands.length > 0 && (

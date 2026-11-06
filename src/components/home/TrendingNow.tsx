@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FiChevronLeft, FiChevronRight, FiArrowRight } from "react-icons/fi";
 import { useQuery } from "@tanstack/react-query";
 import ProductCard from "../shared/ProductCard";
+import { useCategoriesQuery } from "@/lib/api/queries";
 
 // Initial Category Pills matching user's reference image
 const trendingCategories = [
@@ -160,72 +161,54 @@ const categoryFallbackProducts: Record<string, any[]> = {
 
 interface TrendingNowProps {
   initialBanners?: any[];
+  initialTrendingCategories?: any[];
   initialHomeCategories?: any[];
   allCategories?: any[];
 }
 
 export default function TrendingNow({
   initialBanners = [],
+  initialTrendingCategories = [],
   initialHomeCategories = [],
   allCategories = [],
 }: TrendingNowProps) {
-  const [activeTab, setActiveTab] = useState<string>("bags-luggage");
+  // Fetch fresh trending categories marked by Admin
+  const { data: trendingCatsResponse } = useCategoriesQuery({
+    isTrending: true,
+    limit: 20,
+  });
+
+  const apiTrendingCategories = trendingCatsResponse?.data || [];
+  const categoriesToDisplay =
+    apiTrendingCategories.length > 0
+      ? apiTrendingCategories
+      : initialTrendingCategories.length > 0
+      ? initialTrendingCategories
+      : trendingCategories;
+
+  const defaultSlug =
+    categoriesToDisplay[0]?.slug ||
+    categoriesToDisplay[0]?._id ||
+    "bags-luggage";
+  const [activeTab, setActiveTab] = useState<string>(defaultSlug);
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Fetch Parent Categories marked for Home Promo (showInHome=true)
-  const { data: homeCatsResponse } = useQuery<{
-    success: boolean;
-    data: any[];
-  }>({
-    queryKey: ["home-landing-categories"],
-    queryFn: async () => {
-      const res = await fetch(
-        `http://localhost:5001/api/v1/categories?showInHome=true&status=active&isDeleted=false&limit=6`
+  // Sync activeTab when categories change
+  useEffect(() => {
+    if (categoriesToDisplay.length > 0) {
+      const exists = categoriesToDisplay.some(
+        (c: any) => (c.slug || c._id) === activeTab
       );
-      if (!res.ok) throw new Error("Failed to fetch home categories");
-      return res.json();
-    },
-    staleTime: 1000 * 60 * 5,
-  });
+      if (!exists) {
+        setActiveTab(categoriesToDisplay[0].slug || categoriesToDisplay[0]._id);
+      }
+    }
+  }, [categoriesToDisplay, activeTab]);
 
-  const queryHomeCats = homeCatsResponse?.data || [];
-  const parentCatsFromAll = allCategories.filter(
-    (c) => !c.parentCategory && c.status !== "inactive"
-  );
-
-  // Fallback cards if admin hasn't marked 3 categories yet
-  const defaultFallbackCards = [
-    {
-      name: "Lifestyle Accessories",
-      slug: "lifestyle-accessories",
-      image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80",
-    },
-    {
-      name: "Watch & Accessories",
-      slug: "watch-accessories",
-      image: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&q=80",
-    },
-    {
-      name: "Backpacks & Luggage",
-      slug: "bags-luggage",
-      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80",
-    },
-  ];
-
-  // Resolve 3 landing cards to display
-  let landingCards: any[] = [];
-  if (queryHomeCats.length > 0) {
-    landingCards = queryHomeCats;
-  } else if (initialHomeCategories.length > 0) {
-    landingCards = initialHomeCategories;
-  } else if (parentCatsFromAll.length > 0) {
-    landingCards = parentCatsFromAll;
-  } else {
-    landingCards = defaultFallbackCards;
-  }
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/api/v1";
 
   // Fetch products for selected category using TanStack Query
   const { data: apiResponse, isLoading } = useQuery<{
@@ -235,7 +218,7 @@ export default function TrendingNow({
     queryKey: ["trending-products", activeTab],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5001/api/v1/products?category=${activeTab}&limit=12`
+        `${API_BASE_URL}/products?category=${activeTab}&limit=12`
       );
       if (!res.ok) throw new Error("Failed to fetch");
       return res.json();
@@ -296,51 +279,6 @@ export default function TrendingNow({
     <div className="space-y-6 sm:space-y-8 py-4 select-none">
       <div className="container mx-auto px-3 sm:px-6 lg:px-8">
         {/* ========================================================= */}
-        {/* TOP BANNER CARDS: Exclusive Festive Collections (Image 1) */}
-        {/* ========================================================= */}
-        <div className="mb-6 sm:mb-8">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg sm:text-xl font-black text-gray-900 tracking-tight">
-              Gadget Festive
-            </h3>
-            <span className="text-xs text-gray-400 font-medium">
-              Limited Edition Offers
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
-            {landingCards.slice(0, 3).map((item, idx) => (
-              <Link
-                key={item._id || item.slug || idx}
-                href={`/${item.slug}`}
-                className="group relative rounded-xl sm:rounded-2xl overflow-hidden h-[140px] sm:h-[160px] border border-gray-200/80 shadow-2xs hover:shadow-md transition-all cursor-pointer block bg-slate-900"
-              >
-                {/* Background Category Image */}
-                <img
-                  src={item.image || "/img/sbb1.png"}
-                  alt={item.name}
-                  className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-500 brightness-90 group-hover:brightness-95"
-                />
-
-                {/* Dark Gradient Overlay for Crisp Legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-4">
-                  <span className="text-[10px] uppercase font-black tracking-widest text-cyan-300">
-                    Exclusive Collection
-                  </span>
-                  <h4 className="text-base sm:text-lg font-black text-white tracking-wide truncate mt-0.5">
-                    {item.name}
-                  </h4>
-                  <p className="text-xs text-white/90 flex items-center gap-1 font-semibold group-hover:translate-x-1 transition-transform mt-1">
-                    <span>Explore Collection</span>{" "}
-                    <FiArrowRight size={13} className="text-[#FF5A5A]" />
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* ========================================================= */}
         {/* TRENDING NOW SECTION WITH CATEGORY PILLS (Exact Image 1)  */}
         {/* ========================================================= */}
         <div className="bg-[#f8fafc]/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-gray-200/80 shadow-xs">
@@ -355,13 +293,14 @@ export default function TrendingNow({
 
             {/* Middle: Category Filter Pills */}
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-              {trendingCategories.map((cat) => {
-                const isActive = activeTab === cat.slug;
+              {categoriesToDisplay.map((cat: any) => {
+                const catSlug = cat.slug || cat._id || cat.id;
+                const isActive = activeTab === catSlug;
                 return (
                   <button
-                    key={cat.id}
+                    key={cat._id || cat.id || catSlug}
                     type="button"
-                    onClick={() => setActiveTab(cat.slug)}
+                    onClick={() => setActiveTab(catSlug)}
                     className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer ${
                       isActive
                         ? "bg-[#1e40af] text-white shadow-sm ring-2 ring-[#1e40af]/20"
@@ -427,7 +366,7 @@ export default function TrendingNow({
                     className="shrink-0 w-[170px] sm:w-[195px] md:w-[215px] lg:w-[230px] h-72 bg-white rounded-xl border border-gray-100 animate-pulse"
                   />
                 ))
-              ) : (
+              ) : displayProducts.length > 0 ? (
                 displayProducts.map((product: any, idx: number) => (
                   <div
                     key={product._id || idx}
@@ -439,6 +378,10 @@ export default function TrendingNow({
                     />
                   </div>
                 ))
+              ) : (
+                <div className="w-full py-12 text-center text-gray-400 text-sm font-medium">
+                  No products found in this category yet.
+                </div>
               )}
             </div>
           </div>

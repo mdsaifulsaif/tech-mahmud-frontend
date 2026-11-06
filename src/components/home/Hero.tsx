@@ -22,6 +22,24 @@ const Hero: React.FC<HeroProps> = ({ initialBanners }) => {
   const sideMiddleBanner = apiBanners.find((b) => b.placement === "side_middle");
   const sideBottomBanner = apiBanners.find((b) => b.placement === "side_bottom");
 
+  // Helper to resolve the correct destination link (supports category dropdown and custom links)
+  const resolveBannerLink = (banner?: any): string => {
+    if (!banner) return "/shop";
+    if (banner.link && banner.link.trim() !== "" && banner.link !== "#") {
+      return banner.link;
+    }
+    if (banner.categorySlug) {
+      return `/${banner.categorySlug}`;
+    }
+    if (typeof banner.categoryID === "object" && banner.categoryID?.slug) {
+      return `/${banner.categoryID.slug}`;
+    }
+    if (typeof banner.categoryID === "string" && banner.categoryID) {
+      return `/${banner.categoryID}`;
+    }
+    return "/shop";
+  };
+
   // Slider State
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -87,9 +105,9 @@ const Hero: React.FC<HeroProps> = ({ initialBanners }) => {
   };
 
   return (
-    <div className="container mx-auto px-2.5 sm:px-6 lg:px-8 pt-3 sm:pt-4 pb-4 sm:pb-8">
-      {/* ===== STAR TECH HERO GRID ===== */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 items-stretch">
+    <div className="container mx-auto px-2.5 sm:px-6 lg:px-8 pt-2 sm:pt-4 pb-3 sm:pb-8">
+      {/* ===== HERO BANNER SECTION ===== */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 sm:gap-4 items-stretch">
         {/* ========================================================= */}
         {/* LEFT COLUMN: HERO SLIDING CAROUSEL (~68-70% width)         */}
         {/* ========================================================= */}
@@ -157,9 +175,9 @@ const Hero: React.FC<HeroProps> = ({ initialBanners }) => {
                         : "opacity-0 z-0 pointer-events-none"
                     }`}
                   >
-                    {banner.link ? (
+                    {resolveBannerLink(banner) ? (
                       <Link
-                        href={banner.link}
+                        href={resolveBannerLink(banner)}
                         className="block w-full h-full cursor-pointer"
                         tabIndex={isActive ? 0 : -1}
                       >
@@ -245,43 +263,47 @@ const Hero: React.FC<HeroProps> = ({ initialBanners }) => {
         {/* RIGHT COLUMN: 3 STATIC PROMO CARDS (~30-32% width)         */}
         {/* Matches reference layout with 3 vertical side cards        */}
         {/* ========================================================= */}
-        <div className="lg:col-span-4 xl:col-span-4 flex flex-col gap-2.5 sm:gap-3 lg:h-[480px] xl:h-[510px]">
+        <div className="lg:col-span-4 xl:col-span-4 flex flex-col gap-2 sm:gap-3 lg:h-[480px] xl:h-[510px]">
           {/* ----- 1. TOP SIDE BANNER ----- */}
-          <div className="flex-1 w-full relative rounded-xl sm:rounded-2xl overflow-hidden shadow-xs bg-[#101b2b] group border border-gray-100/80 min-h-[135px] sm:min-h-[150px] lg:min-h-0">
+          <div className="w-full relative rounded-xl sm:rounded-2xl overflow-hidden shadow-xs bg-[#101b2b] group border border-gray-100/80 aspect-[3.8/1] sm:aspect-[4.2/1] lg:aspect-auto lg:h-full lg:flex-1">
             {sideTopBanner ? (
               <Link
-                href={sideTopBanner.link || "#"}
+                href={resolveBannerLink(sideTopBanner)}
                 className="block relative w-full h-full cursor-pointer"
               >
                 <Image
-                  src={sideTopBanner.image}
+                  src={sideTopBanner.mobileImage || sideTopBanner.image}
                   alt={sideTopBanner.title || "Side Top Promotion"}
                   fill
                   quality={95}
                   sizes="(max-width: 640px) 100vw, 420px"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
               </Link>
             ) : (
               // Default Fallback Top Card (Marketplace / Gadgets & Appliances style)
               <Link
                 href="/shop"
-                className="block relative w-full h-full p-4 sm:p-5 bg-gradient-to-r from-[#202738] via-[#2d3a54] to-[#3a4454] text-white flex flex-col justify-between group cursor-pointer"
+                className="block relative w-full h-full p-2.5 sm:p-4 lg:p-5 bg-gradient-to-r from-[#202738] via-[#2d3a54] to-[#3a4454] text-white flex flex-col justify-between group cursor-pointer"
               >
-                <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center sm:items-start justify-between gap-2">
                   <div>
-                    <span className="text-[10px] uppercase font-black tracking-widest text-amber-300 bg-amber-400/20 px-2 py-0.5 rounded">
+                    <span className="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-amber-300 bg-amber-400/20 px-1.5 sm:px-2 py-0.5 rounded">
                       MARKETPLACE
                     </span>
-                    <h3 className="text-base sm:text-lg font-bold mt-1 text-white leading-tight">
+                    <h3 className="text-xs sm:text-base lg:text-lg font-bold mt-0.5 sm:mt-1 text-white leading-tight">
                       Gadgets & Appliances
                     </h3>
-                    <p className="text-[11px] text-gray-300 mt-0.5 line-clamp-1">
+                    <p className="hidden sm:block text-[11px] text-gray-300 mt-0.5 line-clamp-1">
                       Air fryers, smart audio & daily electronics.
                     </p>
                   </div>
+                  <div className="sm:hidden flex items-center gap-1 text-[11px] font-bold text-amber-300 shrink-0">
+                    <span>Explore</span>
+                    <FiArrowRight size={11} />
+                  </div>
                 </div>
-                <div className="mt-2 flex items-center gap-1.5 text-xs font-bold text-amber-300 group-hover:translate-x-1 transition-transform">
+                <div className="hidden sm:flex mt-2 items-center gap-1.5 text-xs font-bold text-amber-300 group-hover:translate-x-1 transition-transform">
                   <span>Explore Marketplace</span>
                   <FiArrowRight size={13} />
                 </div>
@@ -290,41 +312,45 @@ const Hero: React.FC<HeroProps> = ({ initialBanners }) => {
           </div>
 
           {/* ----- 2. MIDDLE SIDE BANNER ----- */}
-          <div className="flex-1 w-full relative rounded-xl sm:rounded-2xl overflow-hidden shadow-xs bg-[#f8fafc] group border border-gray-100/80 min-h-[135px] sm:min-h-[150px] lg:min-h-0">
+          <div className="w-full relative rounded-xl sm:rounded-2xl overflow-hidden shadow-xs bg-[#f8fafc] group border border-gray-100/80 aspect-[3.8/1] sm:aspect-[4.2/1] lg:aspect-auto lg:h-full lg:flex-1">
             {sideMiddleBanner ? (
               <Link
-                href={sideMiddleBanner.link || "#"}
+                href={resolveBannerLink(sideMiddleBanner)}
                 className="block relative w-full h-full cursor-pointer"
               >
                 <Image
-                  src={sideMiddleBanner.image}
+                  src={sideMiddleBanner.mobileImage || sideMiddleBanner.image}
                   alt={sideMiddleBanner.title || "Side Middle Promotion"}
                   fill
                   quality={95}
                   sizes="(max-width: 640px) 100vw, 420px"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
               </Link>
             ) : (
               // Default Fallback Middle Card (Lifestyle / Fashion style)
               <Link
                 href="/shop"
-                className="block relative w-full h-full p-4 sm:p-5 bg-gradient-to-r from-[#0284c7] via-[#0369a1] to-[#0f172a] text-white flex flex-col justify-between group cursor-pointer"
+                className="block relative w-full h-full p-2.5 sm:p-4 lg:p-5 bg-gradient-to-r from-[#0284c7] via-[#0369a1] to-[#0f172a] text-white flex flex-col justify-between group cursor-pointer"
               >
-                <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center sm:items-start justify-between gap-2">
                   <div>
-                    <span className="text-[10px] uppercase font-black tracking-widest text-cyan-200 bg-cyan-400/20 px-2 py-0.5 rounded">
+                    <span className="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-cyan-200 bg-cyan-400/20 px-1.5 sm:px-2 py-0.5 rounded">
                       LIFESTYLE & WEAR
                     </span>
-                    <h3 className="text-base sm:text-lg font-bold mt-1 text-white leading-tight">
+                    <h3 className="text-xs sm:text-base lg:text-lg font-bold mt-0.5 sm:mt-1 text-white leading-tight">
                       Live Better Lifestyle
                     </h3>
-                    <p className="text-[11px] text-cyan-100 mt-0.5 line-clamp-1">
+                    <p className="hidden sm:block text-[11px] text-cyan-100 mt-0.5 line-clamp-1">
                       Everyday casuals, formal wear & modern outfits.
                     </p>
                   </div>
+                  <div className="sm:hidden flex items-center gap-1 text-[11px] font-bold text-cyan-200 shrink-0">
+                    <span>View</span>
+                    <FiArrowRight size={11} />
+                  </div>
                 </div>
-                <div className="mt-2 flex items-center gap-1.5 text-xs font-bold text-cyan-200 group-hover:translate-x-1 transition-transform">
+                <div className="hidden sm:flex mt-2 items-center gap-1.5 text-xs font-bold text-cyan-200 group-hover:translate-x-1 transition-transform">
                   <span>View Collection</span>
                   <FiArrowRight size={13} />
                 </div>
@@ -333,41 +359,45 @@ const Hero: React.FC<HeroProps> = ({ initialBanners }) => {
           </div>
 
           {/* ----- 3. BOTTOM SIDE BANNER ----- */}
-          <div className="flex-1 w-full relative rounded-xl sm:rounded-2xl overflow-hidden shadow-xs bg-[#0b0f19] group border border-gray-100/80 min-h-[135px] sm:min-h-[150px] lg:min-h-0">
+          <div className="w-full relative rounded-xl sm:rounded-2xl overflow-hidden shadow-xs bg-[#0b0f19] group border border-gray-100/80 aspect-[3.8/1] sm:aspect-[4.2/1] lg:aspect-auto lg:h-full lg:flex-1">
             {sideBottomBanner ? (
               <Link
-                href={sideBottomBanner.link || "#"}
+                href={resolveBannerLink(sideBottomBanner)}
                 className="block relative w-full h-full cursor-pointer"
               >
                 <Image
-                  src={sideBottomBanner.image}
+                  src={sideBottomBanner.mobileImage || sideBottomBanner.image}
                   alt={sideBottomBanner.title || "Side Bottom Promotion"}
                   fill
                   quality={95}
                   sizes="(max-width: 640px) 100vw, 420px"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
               </Link>
             ) : (
               // Default Fallback Bottom Card (Streetwear / Modern Trends style)
               <Link
                 href="/shop"
-                className="block relative w-full h-full p-4 sm:p-5 bg-gradient-to-r from-[#18181b] via-[#27272a] to-[#09090b] text-white flex flex-col justify-between group cursor-pointer border-t border-white/10"
+                className="block relative w-full h-full p-2.5 sm:p-4 lg:p-5 bg-gradient-to-r from-[#18181b] via-[#27272a] to-[#09090b] text-white flex flex-col justify-between group cursor-pointer border-t border-white/10"
               >
-                <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center sm:items-start justify-between gap-2">
                   <div>
-                    <span className="text-[10px] uppercase font-black tracking-widest text-[#FF8B5A] bg-[#FF5A5A]/20 px-2 py-0.5 rounded">
+                    <span className="text-[9px] sm:text-[10px] uppercase font-black tracking-widest text-[#FF8B5A] bg-[#FF5A5A]/20 px-1.5 sm:px-2 py-0.5 rounded">
                       EXCLUSIVE DROPS
                     </span>
-                    <h3 className="text-base sm:text-lg font-bold mt-1 text-white leading-tight">
+                    <h3 className="text-xs sm:text-base lg:text-lg font-bold mt-0.5 sm:mt-1 text-white leading-tight">
                       DHEU • Trending Streetwear
                     </h3>
-                    <p className="text-[11px] text-zinc-400 mt-0.5 line-clamp-1">
+                    <p className="hidden sm:block text-[11px] text-zinc-400 mt-0.5 line-clamp-1">
                       Winter jackets, hoodies & urban apparel.
                     </p>
                   </div>
+                  <div className="sm:hidden flex items-center gap-1 text-[11px] font-bold text-[#FF8B5A] shrink-0">
+                    <span>Shop</span>
+                    <FiArrowRight size={11} />
+                  </div>
                 </div>
-                <div className="mt-2 flex items-center gap-1.5 text-xs font-bold text-[#FF8B5A] group-hover:translate-x-1 transition-transform">
+                <div className="hidden sm:flex mt-2 items-center gap-1.5 text-xs font-bold text-[#FF8B5A] group-hover:translate-x-1 transition-transform">
                   <span>Shop The Drop</span>
                   <FiArrowRight size={13} />
                 </div>
@@ -378,7 +408,7 @@ const Hero: React.FC<HeroProps> = ({ initialBanners }) => {
       </div>
 
       {/* ===== ANNOUNCEMENT / STATUS BAR (Star Tech style ticker as in reference image) ===== */}
-      <div className="mt-3.5 bg-white border border-gray-200/80 rounded-xl px-4 py-2.5 shadow-2xs flex items-center justify-between text-xs text-gray-700 overflow-hidden">
+      <div className="hidden sm:flex mt-3.5 bg-white border border-gray-200/80 rounded-xl px-4 py-2.5 shadow-2xs items-center justify-between text-xs text-gray-700 overflow-hidden">
         <div className="flex items-center gap-2 text-gray-800 shrink-0 font-bold">
           <span className="w-2 h-2 rounded-full bg-[#FF5A5A] animate-pulse" />
           <span className="text-[#FF5A5A] uppercase tracking-wider text-[11px] font-black">

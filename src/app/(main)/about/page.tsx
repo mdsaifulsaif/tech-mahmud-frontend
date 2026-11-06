@@ -9,68 +9,73 @@ import {
   FiArrowRight,
   FiChevronRight,
   FiAward,
-  FiHeart,
+  FiHeadphones,
+  FiSmartphone,
+  FiWatch,
+  FiCpu,
 } from "react-icons/fi";
-import { BiLeaf } from "react-icons/bi";
-import { RiEBike2Line } from "react-icons/ri";
 
 export const metadata: Metadata = {
-  title: "About Us | Tech Mahmud - Fresh Tech & Lifestyle Delivery in Dhaka",
+  title: "About Us | Tech Mahmud - Premier Tech, Gadgets & Lifestyle in Bangladesh",
   description:
-    "Learn about Tech Mahmud, Dhaka's trusted online tech & lifestyle platform delivering 100% farm-fresh vegetables, fruits, fish, meat, and ready-to-cook essentials directly to your doorstep.",
+    "Learn about Tech Mahmud, Bangladesh's trusted e-commerce platform delivering 100% genuine smartphones, laptops, smart gadgets, audio gear, and trendy apparel directly to your doorstep with official warranty.",
 };
 
 export default function AboutPage() {
   const coreValues = [
     {
-      icon: <BiLeaf className="text-[var(--color-primary)]" size={28} />,
-      title: "100% Farm-Fresh Sourcing",
+      icon: <FiShield className="text-[var(--color-primary)]" size={28} />,
+      title: "100% Genuine Products",
       description:
-        "We source our vegetables and fruits daily from trusted local farmers across the Dhaka division. No stale cold-storage produce, only morning-harvested goodness.",
+        "Every single smartphone, laptop, gadget, and accessory is 100% authentic, sourced directly from authorized brand distributors with genuine manufacturer warranty.",
     },
     {
-      icon: <FiShield className="text-[var(--color-primary)]" size={28} />,
-      title: "Hygienic Sorting & Packing",
+      icon: <FiAward className="text-[var(--color-primary)]" size={28} />,
+      title: "Official Brand Warranty",
       description:
-        "Every item is inspected, hand-sorted, and carefully packed under strict hygienic standards so you receive only clean, unblemished produce.",
+        "Enjoy total peace of mind with official brand warranties, valid service claims, and dedicated customer care across Bangladesh.",
     },
     {
       icon: <FiTruck className="text-[var(--color-primary)]" size={28} />,
-      title: "Fast Doorstep Delivery",
+      title: "Fast Nationwide Delivery",
       description:
-        "Our logistics team ensures fast, reliable shipping across Bangladesh with premium parcel protection.",
+        "Lightning-fast delivery across all 64 districts of Bangladesh. Next-day delivery in Dhaka city and secure express courier nationwide.",
     },
     {
       icon: <FiSmile className="text-[var(--color-primary)]" size={28} />,
-      title: "Zero-Hassle Replacement",
+      title: "7-Day Replacement Guarantee",
       description:
-        "We stand by our quality. If any item does not meet your expectations at delivery, we replace it or refund you instantly without debate.",
+        "We stand firmly behind our products. In case of any manufacturing defects or transit damage, get hassle-free replacement or quick refund.",
     },
   ];
 
   const highlights = [
-    { number: "5,000+", label: "Happy Households in Dhaka" },
-    { number: "150+", label: "Daily Fresh Farm Products" },
-    { number: "98.8%", label: "On-Time Morning & Evening Delivery" },
-    { number: "100%", label: "Freshness & Satisfaction Guarantee" },
+    { number: "50,000+", label: "Happy Customers Nationwide" },
+    { number: "100+", label: "Leading Global & Local Brands" },
+    { number: "64", label: "Districts Covered with Express Shipping" },
+    { number: "100%", label: "Authentic & Genuine Guarantee" },
   ];
 
   const categories = [
     {
-      title: "Fresh Vegetables",
-      desc: "Leafy greens, roots, tubers, and seasonal favorites sourced fresh at dawn.",
+      icon: <FiSmartphone size={22} className="text-[var(--color-primary)]" />,
+      title: "Smartphones & Tablets",
+      desc: "Latest Apple iPhones, Samsung Galaxy, Xiaomi, and budget kings with official warranty.",
     },
     {
-      title: "Ready-to-Cook",
-      desc: "Peeled, chopped, and recipe-ready veggies designed to save you prep time.",
+      icon: <FiCpu size={22} className="text-[var(--color-primary)]" />,
+      title: "Laptops & PC Accessories",
+      desc: "High-performance laptops, mechanical keyboards, precision mice, and hardware components.",
     },
     {
-      title: "Fresh Fruits",
-      desc: "Sweet, naturally ripened local and seasonal fruits packed with vitamins.",
+      icon: <FiHeadphones size={22} className="text-[var(--color-primary)]" />,
+      title: "Audio & Smart Gadgets",
+      desc: "ANC wireless earbuds, Bluetooth speakers, power banks, chargers, and smart home tech.",
     },
     {
-      title: "Fish & Halal Meat",
-      desc: "Cleaned and fresh river fish and responsibly sourced meat delivered cold.",
+      icon: <FiWatch size={22} className="text-[var(--color-primary)]" />,
+      title: "Smartwatches & Lifestyle",
+      desc: "AMOLED smartwatches, fitness trackers, bags, and trendy premium fashion wear.",
     },
   ];
 
@@ -90,7 +95,7 @@ export default function AboutPage() {
             About <span className="text-[var(--color-primary)]">Tech Mahmud</span>
           </h1>
           <p className="mt-3 text-gray-600 max-w-2xl text-sm sm:text-base leading-relaxed">
-            Dhaka&apos;s homegrown online tech & lifestyle destination committed to making fresh, safe, and nutritious produce easily accessible to every family.
+            Bangladesh&apos;s premier online technology & lifestyle destination, dedicated to delivering authentic tech gadgets, electronics, and fashion directly to your door with reliability and integrity.
           </p>
         </div>
       </div>
@@ -102,40 +107,40 @@ export default function AboutPage() {
             {/* Story Text */}
             <div className="lg:col-span-7 space-y-5">
               <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--color-primary)] bg-[var(--color-primary)]/10 px-3.5 py-1.5 rounded-full">
-                <BiLeaf size={16} /> Our Story & Mission
+                <FiAward size={16} /> Our Story & Mission
               </span>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight leading-tight">
-                Bridging the Gap Between Local Farmers and City Kitchens
+                Empowering Bangladesh with Authentic Technology & Modern Lifestyle
               </h2>
               <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                Navigating crowded morning wet markets in Dhaka is often exhausting, time-consuming, and uncertain in terms of hygiene and pricing. <strong>Tech Mahmud</strong> was born out of a simple conviction: families deserve pure, nutritious groceries without the friction.
+                In an era where counterfeit electronics, inflated prices, and unreliable warranty claims are far too common, <strong>Tech Mahmud</strong> was established with a singular mission: to provide tech enthusiasts, students, professionals, and gamers with 100% genuine products at competitive prices backed by genuine customer care.
               </p>
               <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                By partnering directly with farmers and trusted regional suppliers in Dhaka, we cut out unnecessary middlemen. This guarantees fairer wages for local growers and ensures our customers receive vegetables, fruits, fish, and meat that are remarkably fresher and competitively priced.
+                From high-end smartphones and flagship laptops to wireless audio, smart wearables, and curated lifestyle apparel, every item in our catalog undergoes rigorous quality checks before dispatch. We partner with authorized importers and distributors to ensure you always get valid manufacturer warranties and after-sales support.
               </p>
               <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex items-start gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100">
-                  <FiAward className="text-[var(--color-primary)] shrink-0 mt-0.5" size={20} />
+                  <FiShield className="text-[var(--color-primary)] shrink-0 mt-0.5" size={20} />
                   <div>
-                    <h4 className="font-bold text-gray-900 text-sm">Direct Farm Sourcing</h4>
-                    <p className="text-xs text-gray-500 mt-0.5">Freshly picked every dawn with strict quality checks.</p>
+                    <h4 className="font-bold text-gray-900 text-sm">Zero Tolerance for Clones</h4>
+                    <p className="text-xs text-gray-500 mt-0.5">Strictly 100% authentic and verified genuine products.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100">
-                  <FiHeart className="text-[var(--color-primary)] shrink-0 mt-0.5" size={20} />
+                  <FiCheckCircle className="text-[var(--color-primary)] shrink-0 mt-0.5" size={20} />
                   <div>
-                    <h4 className="font-bold text-gray-900 text-sm">Customer First</h4>
-                    <p className="text-xs text-gray-500 mt-0.5">Committed to genuine technology products and prompt service.</p>
+                    <h4 className="font-bold text-gray-900 text-sm">Transparent Pricing & Support</h4>
+                    <p className="text-xs text-gray-500 mt-0.5">Fair prices in BDT with responsive customer assistance.</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Highlights Card */}
-            <div className="lg:col-span-5 bg-gradient-to-br from-[#1b221a] to-[#121612] text-white p-8 sm:p-10 rounded-3xl shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 -mr-8 -mt-8 w-44 h-44 bg-[var(--color-primary)]/10 rounded-full blur-2xl pointer-events-none" />
-              <h3 className="text-xl font-bold mb-2">Our Promise in Numbers</h3>
-              <p className="text-gray-400 text-xs mb-8">Serving Dhaka city with relentless dedication and quality.</p>
+            <div className="lg:col-span-5 bg-gradient-to-br from-[#0b141d] to-[#060b10] text-white p-8 sm:p-10 rounded-3xl shadow-xl relative overflow-hidden border border-gray-800">
+              <div className="absolute top-0 right-0 -mr-8 -mt-8 w-44 h-44 bg-[var(--color-primary)]/15 rounded-full blur-2xl pointer-events-none" />
+              <h3 className="text-xl font-bold mb-2">Our Reach in Numbers</h3>
+              <p className="text-gray-400 text-xs mb-8">Serving technology enthusiasts across Bangladesh with pride.</p>
 
               <div className="grid grid-cols-2 gap-6">
                 {highlights.map((item, idx) => (
@@ -151,8 +156,8 @@ export default function AboutPage() {
               </div>
 
               <div className="mt-8 pt-6 border-t border-gray-800 flex items-center justify-between text-xs text-gray-400">
-                <span>Serving Dhaka City</span>
-                <span className="text-[var(--color-primary)] font-semibold">Every Single Day</span>
+                <span>Nationwide Express Logistics</span>
+                <span className="text-[var(--color-primary)] font-semibold">64 Districts</span>
               </div>
             </div>
           </div>
@@ -170,7 +175,7 @@ export default function AboutPage() {
               The Standards We Live By
             </h2>
             <p className="mt-3 text-sm text-gray-600">
-              We operate with uncompromising standards to deliver food you can confidently feed your family.
+              We operate with uncompromising standards to deliver consumer tech and lifestyle items you can trust.
             </p>
           </div>
 
@@ -178,7 +183,7 @@ export default function AboutPage() {
             {coreValues.map((val, idx) => (
               <div
                 key={idx}
-                className="bg-white p-7 rounded-2xl border border-gray-200/80 shadow-xs hover:shadow-md hover:border-[var(--color-primary)]/40 transition-all duration-300 flex flex-col justify-between"
+                className="bg-white p-7 rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-md hover:border-[var(--color-primary)]/40 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   <div className="w-14 h-14 rounded-xl bg-gray-50 flex items-center justify-center mb-5 border border-gray-100">
@@ -206,7 +211,7 @@ export default function AboutPage() {
               What You&apos;ll Find on Tech Mahmud
             </h2>
             <p className="mt-2 text-sm text-gray-500">
-              Your one-stop daily bazaar for everything fresh and wholesome.
+              Your comprehensive hub for next-gen technology and modern style.
             </p>
           </div>
 
@@ -216,8 +221,8 @@ export default function AboutPage() {
                 key={idx}
                 className="p-6 rounded-2xl bg-gray-50 border border-gray-200/70 hover:bg-white hover:border-[var(--color-primary)] transition-all duration-300"
               >
-                <div className="w-8 h-8 rounded-lg bg-[var(--color-primary)]/10 text-[var(--color-primary)] font-bold text-sm flex items-center justify-center mb-4">
-                  0{idx + 1}
+                <div className="w-10 h-10 rounded-lg bg-[var(--color-primary)]/10 flex items-center justify-center mb-4">
+                  {cat.icon}
                 </div>
                 <h3 className="font-bold text-gray-900 text-base mb-2">{cat.title}</h3>
                 <p className="text-xs text-gray-500 leading-relaxed">{cat.desc}</p>
@@ -227,27 +232,27 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Rider & Customer Call to Action Banner */}
+      {/* Customer Call to Action Banner */}
       <section className="py-14 sm:py-18 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="bg-[#141613] text-white rounded-3xl p-8 sm:p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+          <div className="bg-[#0b141d] text-white rounded-3xl p-8 sm:p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl border border-gray-800">
             <div className="max-w-xl text-center md:text-left">
               <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-primary)] bg-[var(--color-primary)]/10 px-3.5 py-1.5 rounded-full inline-block mb-3">
-                Experience the Freshness
+                Experience Genuine Quality
               </span>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
-                Ready to Taste the Difference?
+                Ready to Upgrade Your Tech & Lifestyle?
               </h2>
               <p className="text-gray-400 text-sm mt-3 leading-relaxed">
-                Order today and have fresh vegetables, fruits, and ready-to-cook packs delivered straight to your home in Dhaka.
+                Browse our collection of genuine smartphones, computer accessories, audio gadgets, and premium fashion with official warranty.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 shrink-0 w-full sm:w-auto">
               <Link
                 href="/shop"
-                className="inline-flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white px-7 py-3.5 rounded-xl font-bold text-sm transition-all shadow-md group"
+                className="inline-flex items-center justify-center gap-2 bg-[var(--color-primary)] hover:bg-[#e04848] text-white px-7 py-3.5 rounded-xl font-bold text-sm transition-all shadow-md group"
               >
-                <span>Shop Tech & Fashion</span>
+                <span>Explore Products</span>
                 <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>

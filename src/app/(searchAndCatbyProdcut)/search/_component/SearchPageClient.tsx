@@ -1,10 +1,20 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback, useTransition } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import ProductCard from "@/components/shared/ProductCard";
+import ProductModal from "@/components/shared/ProductModal";
 import { useGetProductsQuery } from "@/redux/api/productApi";
-import { FiSearch, FiX, FiRefreshCw, FiShoppingBag, FiAward, FiLayers } from "react-icons/fi";
+import {
+  FiSearch,
+  FiX,
+  FiRefreshCw,
+  FiShoppingBag,
+  FiAward,
+  FiLayers,
+  FiChevronRight,
+} from "react-icons/fi";
 
 interface SearchPageClientProps {
   query?: string;
@@ -128,9 +138,20 @@ const SearchPageClient: React.FC<SearchPageClientProps> = ({ query = "" }) => {
   const hasActiveFilters = Boolean(activeQuery || filter || productType || brand);
 
   return (
-    <div className="w-full pb-16">
+    <div className="container mx-auto px-3 sm:px-6 lg:px-8 max-w-7xl pt-4 sm:pt-6 pb-16">
+      {/* Breadcrumb Navigation */}
+      <div className="flex items-center gap-2 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
+        <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">
+          Home
+        </Link>
+        <FiChevronRight size={13} />
+        <span className="text-gray-800">
+          {activeQuery ? `Search: ${activeQuery}` : "Search Products"}
+        </span>
+      </div>
+
       {/* Header Result Bar */}
-      <div className="mt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-gray-100">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-gray-200">
         <div>
           {activeQuery ? (
             <h1 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2 flex-wrap">
@@ -191,8 +212,8 @@ const SearchPageClient: React.FC<SearchPageClientProps> = ({ query = "" }) => {
 
       {/* Initial Loading Skeleton */}
       {(isLoading || (isFetching && allProducts.length === 0)) && page === 1 && (
-        <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 md:gap-4">
-          {[...Array(12)].map((_, i) => (
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
+          {[...Array(10)].map((_, i) => (
             <div
               key={i}
               className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm animate-pulse flex flex-col justify-between h-72"
@@ -256,7 +277,7 @@ const SearchPageClient: React.FC<SearchPageClientProps> = ({ query = "" }) => {
 
       {/* Products Grid */}
       {allProducts.length > 0 && (
-        <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 md:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
           {allProducts.map((product: any) => (
             <div key={product._id} className="w-full">
               <ProductCard
@@ -282,6 +303,14 @@ const SearchPageClient: React.FC<SearchPageClientProps> = ({ query = "" }) => {
         <p className="text-center text-gray-400 text-xs font-medium py-12">
           All products loaded
         </p>
+      )}
+
+      {/* Quick View Product Modal */}
+      {selectedProduct && (
+        <ProductModal
+          product={selectedProduct}
+          onClose={closeModal}
+        />
       )}
     </div>
   );

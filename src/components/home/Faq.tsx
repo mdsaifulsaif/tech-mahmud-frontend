@@ -62,14 +62,11 @@ const Faq = () => {
   return (
     <section className="py-6 sm:py-8 bg-[#fbfcfa]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
-        {/* Title & Subtitle Area */}
+        {/* Title Area */}
         <div className="text-center mb-6 sm:mb-8">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
             Frequently Asked Questions
           </h2>
-          <p className="mt-1.5 text-xs sm:text-sm text-gray-500">
-            Got questions? We've got answers. Find everything you need to know below.
-          </p>
         </div>
 
       {/* Accordion Wrapper */}

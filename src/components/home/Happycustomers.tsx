@@ -264,7 +264,6 @@ export default function HappyCustomers({ initialReviews = [] }: HappyCustomersPr
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="What Our Customers Say"
-          description="Real experiences from verified customers across Barisal"
           icon={<BiLeaf size={18} />}
         />
 

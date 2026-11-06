@@ -23,25 +23,25 @@ export async function generateMetadata({
 
   let title = "Search Products | Tech Mahmud";
   let description =
-    "Find fresh groceries, daily essentials and kitchen items in Dhaka at Tech Mahmud.";
+    "Find authentic smartphones, laptops, electronics, smart gadgets, and fashion at Tech Mahmud in Bangladesh.";
 
   if (brand) {
     const formattedBrand = (params.brandName || brand)
       .replace(/-/g, " ")
       .replace(/\b\w/g, (l) => l.toUpperCase());
     title = `${formattedBrand} Products | Tech Mahmud`;
-    description = `Buy authentic ${formattedBrand} products online from Tech Mahmud. Fast home delivery in Dhaka.`;
+    description = `Buy authentic ${formattedBrand} products online from Tech Mahmud. Fast home delivery across Bangladesh.`;
   } else if (filter === "featured") {
     title = "Featured Products | Tech Mahmud";
     description =
-      "Discover our handpicked featured groceries and top items at Tech Mahmud.";
+      "Discover our handpicked featured gadgets and top electronics at Tech Mahmud.";
   } else if (type === "combo") {
     title = "Combo Packs & Value Deals | Tech Mahmud";
     description =
       "Save more with tech & lifestyle combo packages and exclusive daily deals at Tech Mahmud.";
   } else if (q) {
     title = `Search: "${q}" | Tech Mahmud`;
-    description = `Explore products matching "${q}" at Tech Mahmud Dhaka.`;
+    description = `Explore products matching "${q}" at Tech Mahmud with official warranty and fast delivery.`;
   }
 
   return {

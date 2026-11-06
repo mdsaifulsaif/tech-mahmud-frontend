@@ -72,19 +72,19 @@ const Footer: React.FC = () => {
             </h3>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
-              {/* Sub-Col 1 */}
+              {/* Sub-Col 1: Company & Information */}
               <ul className="space-y-2.5 text-xs">
                 <li>
                   <Link
-                    href="/shop"
+                    href="/about"
                     className="hover:text-[#FF5A5A] transition-colors"
                   >
-                    Affiliate Program
+                    About Us
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/contact"
+                    href="/track-order"
                     className="hover:text-[#FF5A5A] transition-colors"
                   >
                     Online Delivery
@@ -92,32 +92,16 @@ const Footer: React.FC = () => {
                 </li>
                 <li>
                   <Link
-                    href="/terms"
+                    href="/contact"
                     className="hover:text-[#FF5A5A] transition-colors"
                   >
-                    Refund and Return Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/blog"
-                    className="hover:text-[#FF5A5A] transition-colors"
-                  >
-                    Blog
+                    Contact Us
                   </Link>
                 </li>
               </ul>
 
-              {/* Sub-Col 2 */}
+              {/* Sub-Col 2: Policies & Legal */}
               <ul className="space-y-2.5 text-xs">
-                <li>
-                  <Link
-                    href="/terms"
-                    className="hover:text-[#FF5A5A] transition-colors"
-                  >
-                    EMI Terms
-                  </Link>
-                </li>
                 <li>
                   <Link
                     href="/privacy"
@@ -131,7 +115,35 @@ const Footer: React.FC = () => {
                     href="/terms"
                     className="hover:text-[#FF5A5A] transition-colors"
                   >
+                    Terms and Conditions
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/refund-policy"
+                    className="hover:text-[#FF5A5A] transition-colors"
+                  >
+                    Refund and Return Policy
+                  </Link>
+                </li>
+              </ul>
+
+              {/* Sub-Col 3: Rewards & Support */}
+              <ul className="space-y-2.5 text-xs">
+                <li>
+                  <Link
+                    href="/tech-point-policy"
+                    className="hover:text-[#FF5A5A] transition-colors"
+                  >
                     Tech Point Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/track-order"
+                    className="hover:text-[#FF5A5A] transition-colors"
+                  >
+                    Order Tracking
                   </Link>
                 </li>
                 <li>
@@ -139,43 +151,7 @@ const Footer: React.FC = () => {
                     href="/contact"
                     className="hover:text-[#FF5A5A] transition-colors"
                   >
-                    Contact Us
-                  </Link>
-                </li>
-              </ul>
-
-              {/* Sub-Col 3 */}
-              <ul className="space-y-2.5 text-xs">
-                <li>
-                  <Link
-                    href="/about"
-                    className="hover:text-[#FF5A5A] transition-colors"
-                  >
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/terms"
-                    className="hover:text-[#FF5A5A] transition-colors"
-                  >
-                    Terms and Conditions
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/about"
-                    className="hover:text-[#FF5A5A] transition-colors"
-                  >
-                    Career
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/brands"
-                    className="hover:text-[#FF5A5A] transition-colors"
-                  >
-                    Brands
+                    Store Locator
                   </Link>
                 </li>
               </ul>

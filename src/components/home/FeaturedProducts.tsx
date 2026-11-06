@@ -72,15 +72,10 @@ const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
       <div className="container mx-auto px-3 sm:px-6 lg:px-8">
         {/* Section Header: Title on Left, See More Link on Right */}
         <div className="flex items-center justify-between mb-4 sm:mb-6">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
-              <FiZap className="text-[#FF5A5A]" size={22} />
-              Featured Products
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
-              Handpicked best selling products just for you
-            </p>
-          </div>
+          <h2 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+            <FiZap className="text-[#FF5A5A]" size={22} />
+            Featured Products
+          </h2>
 
           <Link
             href="/shop"
