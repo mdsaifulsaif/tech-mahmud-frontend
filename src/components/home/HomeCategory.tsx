@@ -198,7 +198,7 @@ export default function HomeCategory({ initialCategories = [] }: HomeCategoryPro
           className="flex items-stretch gap-3 sm:gap-4 overflow-x-auto no-scrollbar scroll-smooth py-1"
         >
           {displayCategories.map((cat: any, index: number) => {
-            const catHref = `/cat/${cat.slug || cat.name?.toLowerCase().replace(/\s+/g, "-")}`;
+            const catHref = `/${cat.slug || cat.name?.toLowerCase().replace(/\s+/g, "-")}`;
             const imgSrc = cat.image || cat.icon || "/img/sbb1.png";
 
             return (

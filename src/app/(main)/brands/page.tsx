@@ -79,7 +79,7 @@ export default async function BrandsPage() {
             {brands.map((brand) => (
               <Link
                 key={brand._id}
-                href={`/search?brand=${brand.slug || brand.name?.toLowerCase().replace(/\s+/g, "-")}`}
+                href={`/${brand.slug || brand.name?.toLowerCase().replace(/\s+/g, "-")}`}
                 className="group block bg-white border border-gray-100/90 rounded-2xl p-5 hover:shadow-md hover:border-gray-200 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center text-center"
               >
                 {/* Logo Box */}

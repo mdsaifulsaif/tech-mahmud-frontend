@@ -1,25 +1,10 @@
-import { Metadata } from "next";
-import CategoryPageClient from "../_component/CategoryPageClient";
+import { redirect } from "next/navigation";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  const categoryName = slug.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
-
-  return {
-    title: `${categoryName} - Best Products in Bangladesh`,
-    description: `Shop for ${categoryName} products at best prices. Get fresh, quality products delivered to your doorstep.`,
-  };
-}
-
-export default async function CategoryPage({
+export default async function LegacyCategoryPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  return <CategoryPageClient slug={slug} />;
+  redirect(`/${slug}`);
 }

@@ -39,6 +39,11 @@ const MinHeader = ({ onToggleMobile }: MinHeaderProps) => {
   const { totalItems: cartCount, totalPrice: cartTotal, openMiniCart } = useCart();
   const { totalWishlistItems: wishlistCount } = useWishlist();
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -408,7 +413,7 @@ const MinHeader = ({ onToggleMobile }: MinHeaderProps) => {
                     onClick={() => setIsUserMenuOpen(false)}
                     className="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-gray-700 hover:text-[#FF5A5A] hover:bg-gray-50 transition"
                   >
-                    <FiHeart size={14} /> Wishlist ({wishlistCount})
+                    <FiHeart size={14} /> Wishlist ({mounted ? wishlistCount : 0})
                   </Link>
                   <div className="border-t border-gray-100 my-1" />
                   <button
@@ -428,8 +433,11 @@ const MinHeader = ({ onToggleMobile }: MinHeaderProps) => {
             >
               <FiShoppingBag size={16} />
               <span className="hidden sm:inline">Cart</span>
-              <span className="px-1.5 py-0.2 bg-black/20 rounded-full text-[11px] font-mono">
-                {cartCount}
+              <span
+                suppressHydrationWarning
+                className="px-1.5 py-0.2 bg-black/20 rounded-full text-[11px] font-mono"
+              >
+                {mounted ? cartCount : 0}
               </span>
             </button>
           </div>

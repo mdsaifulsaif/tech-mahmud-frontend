@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { FiChevronLeft, FiChevronRight, FiArrowRight } from "react-icons/fi";
 import { useNewCollectionProductsQuery } from "@/lib/api/queries";
-import ProductModal from "@/components/shared/ProductModal";
 import ProductCard from "@/components/shared/ProductCard";
 
 // Fallback products matching the exact items, images, and prices in user's reference images
@@ -266,14 +265,6 @@ export default function NewCollection({ initialProducts = [] }: NewCollectionPro
           />
         </div>
       </div>
-
-      {/* Quick View Modal */}
-      {selectedProduct && (
-        <ProductModal
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-        />
-      )}
     </section>
   );
 }

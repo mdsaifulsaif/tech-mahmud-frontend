@@ -105,7 +105,7 @@ const TrustedBrands: React.FC<TrustedBrandsProps> = ({ initialBrands = [] }) => 
               return (
                 <Link
                   key={`${brand._id}-${idx}`}
-                  href={`/search?brand=${brand.slug || brand.name?.toLowerCase().replace(/\s+/g, "-")}`}
+                  href={`/${brand.slug || brand.name?.toLowerCase().replace(/\s+/g, "-")}`}
                   className="group block bg-white border border-gray-100/90 rounded-2xl p-3 sm:p-3.5 hover:shadow-md hover:border-gray-200 hover:-translate-y-0.5 transition-all duration-300 flex flex-col items-center justify-center shrink-0 w-[125px] sm:w-[145px] md:w-[155px] h-[130px] sm:h-[145px]"
                 >
                   {/* Brand Logo Container */}

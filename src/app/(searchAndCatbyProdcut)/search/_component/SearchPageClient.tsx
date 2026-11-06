@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState, useCallback, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ProductCard from "@/components/shared/ProductCard";
-import ProductModal from "@/components/shared/ProductModal";
 import { useGetProductsQuery } from "@/redux/api/productApi";
 import { FiSearch, FiX, FiRefreshCw, FiShoppingBag, FiAward, FiLayers } from "react-icons/fi";
 
@@ -283,11 +282,6 @@ const SearchPageClient: React.FC<SearchPageClientProps> = ({ query = "" }) => {
         <p className="text-center text-gray-400 text-xs font-medium py-12">
           All products loaded
         </p>
-      )}
-
-      {/* Quick View Modal */}
-      {selectedProduct && (
-        <ProductModal product={selectedProduct} onClose={closeModal} />
       )}
     </div>
   );

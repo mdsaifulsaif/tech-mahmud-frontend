@@ -6,7 +6,6 @@ import Footer from "@/components/layout/Footer";
 import MiniCart from "@/components/shared/MiniCart";
 import FloatingCartButton from "@/components/shared/FloatingCartButton";
 import ComplainModal from "@/components/modals/ComplainModal";
-import WhatsAppLiveChat from "@/components/chat/WhatsAppLiveChat";
 
 export default function MainLayout({
     children,
@@ -22,7 +21,6 @@ export default function MainLayout({
             <MiniCart />
             <FloatingCartButton />
             <ComplainModal />
-            <WhatsAppLiveChat />
             <Footer />
         </>
     );

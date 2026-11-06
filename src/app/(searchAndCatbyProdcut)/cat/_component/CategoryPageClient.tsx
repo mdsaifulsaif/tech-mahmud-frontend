@@ -14,7 +14,6 @@ import {
   FiSearch,
 } from "react-icons/fi";
 import ProductCard from "@/components/shared/ProductCard";
-import ProductModal from "@/components/shared/ProductModal";
 import { useGetProductsQuery } from "@/redux/api/productApi";
 import { useGetCategoriesQuery } from "@/redux/api/categoryApi";
 import { useGetAllBrandsQuery } from "@/redux/api/brandApi";
@@ -232,7 +231,7 @@ export default function CategoryPageClient({ slug }: CategoryPageClientProps) {
             return (
               <Link
                 key={sub.slug || idx}
-                href={`/cat/${sub.slug}`}
+                href={`/${sub.slug}`}
                 className="group flex flex-col items-center shrink-0 w-20 sm:w-24 text-center cursor-pointer"
               >
                 <div
@@ -323,7 +322,7 @@ export default function CategoryPageClient({ slug }: CategoryPageClientProps) {
                     return (
                       <Link
                         key={cat._id || cat.slug}
-                        href={`/cat/${cat.slug}`}
+                        href={`/${cat.slug}`}
                         className={`block text-xs py-1 transition truncate ${
                           isSelected
                             ? "font-bold text-[#1d4ed8]"
@@ -573,14 +572,6 @@ export default function CategoryPageClient({ slug }: CategoryPageClientProps) {
           )}
         </section>
       </div>
-
-      {/* Quick View Modal */}
-      {selectedProduct && (
-        <ProductModal
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-        />
-      )}
     </div>
   );
 }

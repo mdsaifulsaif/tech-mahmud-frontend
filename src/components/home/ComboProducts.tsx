@@ -144,7 +144,6 @@ import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode } from "swiper/modules";
 import ProductCard from "../shared/ProductCard";
-import ProductModal from "../shared/ProductModal";
 import "swiper/css";
 import SectionHeader from "../shared/SectionHeader";
 import { BiLeaf } from "react-icons/bi";
@@ -308,11 +307,6 @@ const ComboProducts: React.FC<ComboProductsProps> = ({ initialProducts = [] }) =
 
      
       </div>
-
-      {/* Quick View Modal */}
-      {selectedProduct && (
-        <ProductModal product={selectedProduct} onClose={closeModal} />
-      )}
     </section>
   );
 };

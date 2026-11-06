@@ -27,6 +27,18 @@ const fallbackCategories = [
   { name: "Lifestyle", slug: "lifestyle" },
 ];
 
+function toCleanSlug(text: string): string {
+  if (!text) return "";
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "-")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export default function CategoryNav() {
   const { data: categoryData } = useCategoriesQuery({ limit: 30 });
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
@@ -121,7 +133,7 @@ export default function CategoryNav() {
                   onMouseLeave={() => setHoveredCategory(null)}
                 >
                   <Link
-                    href={`/cat/${cat.slug || cat.name?.toLowerCase().replace(/\s+/g, "-")}`}
+                    href={`/${toCleanSlug(cat.slug || cat.name)}`}
                     className="py-1 text-[12.5px] sm:text-[13px] font-semibold text-gray-800 hover:text-[#FF5A5A] inline-flex items-center gap-1 transition-colors whitespace-nowrap leading-normal"
                   >
                     <span className="leading-normal">{cat.name}</span>
@@ -139,7 +151,7 @@ export default function CategoryNav() {
                       {cat.children.map((sub: any) => (
                         <Link
                           key={sub._id || sub.slug}
-                          href={`/cat/${sub.slug}`}
+                          href={`/${toCleanSlug(sub.slug || sub.name)}`}
                           className="block px-4 py-2 text-xs font-medium text-gray-700 hover:text-[#FF5A5A] hover:bg-gray-50 transition"
                         >
                           {sub.name}

@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { FiChevronLeft, FiChevronRight, FiArrowRight, FiZap } from "react-icons/fi";
 import ProductCard from "../shared/ProductCard";
-import ProductModal from "../shared/ProductModal";
 
 interface FeaturedProductsProps {
   initialProducts?: any[];
@@ -166,14 +165,6 @@ const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
           />
         </div>
       </div>
-
-      {/* Quick View Modal */}
-      {selectedProduct && (
-        <ProductModal
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-        />
-      )}
     </section>
   );
 };

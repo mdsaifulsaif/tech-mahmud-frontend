@@ -130,10 +130,18 @@ export const productApi = baseApi.injectEndpoints({
       providesTags: ["Products"],
     }),
     getRelatedProducts: builder.query({
-      query: (categoryId: string) => ({
-        url: "/products/related-products",
-        params: { categoryId },
-      }),
+      query: (args: string | { categoryId: string; productId?: string }) => {
+        if (typeof args === "string") {
+          return {
+            url: "/products/related-products",
+            params: { categoryId: args },
+          };
+        }
+        return {
+          url: "/products/related-products",
+          params: args,
+        };
+      },
       providesTags: ["Products"],
     }),
   

@@ -18,7 +18,7 @@ interface Category {
 const CategoryCard: React.FC<{ item: Category }> = ({ item }) => {
   return (
     <Link
-      href={`/cat/${item.slug}`}
+      href={`/${item.slug}`}
       className="group flex flex-col items-center rounded-xl sm:rounded-2xl border border-gray-100 bg-white p-1.5 sm:p-2 shadow-xs transition-all duration-200 hover:shadow-md hover:border-gray-200 hover:-translate-y-0.5 active:scale-[0.97]"
     >
       {/* Square Image Container - 1:1 Ratio */}

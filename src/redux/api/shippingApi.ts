@@ -32,6 +32,12 @@ interface ShippingPreviewArgs {
 
 export const shippingApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    // Delivery Settings (Base Location, Inside/Outside charges)
+    getDeliverySettings: builder.query({
+      query: () => "/shipping/settings",
+      providesTags: ["Shipping"],
+    }),
+
     // Zones
     getZones: builder.query({
       query: () => "/shipping/local",
@@ -64,4 +70,9 @@ export const shippingApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetZonesQuery, useGetShippingConfigQuery, useGetShippingPreviewQuery } = shippingApi;
+export const {
+  useGetDeliverySettingsQuery,
+  useGetZonesQuery,
+  useGetShippingConfigQuery,
+  useGetShippingPreviewQuery,
+} = shippingApi;

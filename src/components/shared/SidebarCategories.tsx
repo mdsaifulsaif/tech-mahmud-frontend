@@ -141,7 +141,7 @@ const SidebarCategories = () => {
           return (
             <Link
               key={cat._id}
-              href={`/cat/${cat.slug}`}
+              href={`/${cat.slug}`}
               className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors border-l-4 ${
                 isActive
                   ? "bg-[var(--color-primary)]/10 border-[var(--color-primary)] text-[var(--color-primary)] font-semibold"

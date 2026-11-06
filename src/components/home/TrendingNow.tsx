@@ -5,7 +5,6 @@ import Link from "next/link";
 import { FiChevronLeft, FiChevronRight, FiArrowRight } from "react-icons/fi";
 import { useQuery } from "@tanstack/react-query";
 import ProductCard from "../shared/ProductCard";
-import ProductModal from "../shared/ProductModal";
 
 // Initial Category Pills matching user's reference image
 const trendingCategories = [
@@ -313,7 +312,7 @@ export default function TrendingNow({
             {landingCards.slice(0, 3).map((item, idx) => (
               <Link
                 key={item._id || item.slug || idx}
-                href={`/cat/${item.slug}`}
+                href={`/${item.slug}`}
                 className="group relative rounded-xl sm:rounded-2xl overflow-hidden h-[140px] sm:h-[160px] border border-gray-200/80 shadow-2xs hover:shadow-md transition-all cursor-pointer block bg-slate-900"
               >
                 {/* Background Category Image */}
@@ -470,14 +469,6 @@ export default function TrendingNow({
           </div>
         </div>
       </div>
-
-      {/* Quick View Modal */}
-      {selectedProduct && (
-        <ProductModal
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-        />
-      )}
     </div>
   );
 }

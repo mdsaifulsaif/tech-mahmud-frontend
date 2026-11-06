@@ -240,17 +240,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
           />
         </button>
 
-        {/* Centered Quick View Eye Icon Button on Hover (Demo style) */}
-        {onQuickView && (
-          <button
-            type="button"
-            onClick={handleQuickViewTrigger}
-            aria-label="Quick View"
-            className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 w-9 h-9 rounded-full bg-[#1d4ed8] hover:bg-[#FF5A5A] text-white flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100"
-          >
-            <FiEye size={17} />
-          </button>
-        )}
+        {/* Centered View Details Eye Icon Button on Hover */}
+        <Link
+          href={productHref}
+          aria-label="View Product Details"
+          className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 w-9 h-9 rounded-full bg-[#1d4ed8] hover:bg-[#FF5A5A] text-white flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100"
+        >
+          <FiEye size={17} />
+        </Link>
       </div>
 
       {/* ============================================================ */}
