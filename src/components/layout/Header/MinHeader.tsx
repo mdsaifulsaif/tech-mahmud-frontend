@@ -426,10 +426,10 @@ const MinHeader = ({ onToggleMobile }: MinHeaderProps) => {
               )}
             </div>
 
-            {/* Item 4: Prominent CTA Button (PC Builder / Cart in Star Tech style) */}
+            {/* Item 4: Prominent CTA Button (Cart - hidden on mobile, visible on desktop) */}
             <button
               onClick={openMiniCart}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-md font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#FF5A5A] to-[#FF8B5A] hover:opacity-95 active:scale-95 transition-all shadow-md shadow-[#FF5A5A]/25 cursor-pointer shrink-0"
+              className="hidden md:inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-md font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#FF5A5A] to-[#FF8B5A] hover:opacity-95 active:scale-95 transition-all shadow-md shadow-[#FF5A5A]/25 cursor-pointer shrink-0"
             >
               <FiShoppingBag size={16} />
               <span className="hidden sm:inline">Cart</span>
