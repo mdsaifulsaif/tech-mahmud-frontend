@@ -2,24 +2,43 @@
 
 import React from "react";
 import Link from "next/link";
-import {
-  FiPhoneCall,
-  FiMapPin,
-} from "react-icons/fi";
+import { FiPhoneCall } from "react-icons/fi";
 import {
   FaFacebookF,
   FaYoutube,
   FaInstagram,
 } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
+import { useGetSettingsQuery } from "@/redux/api/settingsApi";
 
 const Footer: React.FC = () => {
+  const { data: settingsResponse } = useGetSettingsQuery();
+  const settings = settingsResponse?.data || {};
+
+  const phone = settings.phone || "01783176838";
+  const email = settings.email || "support@techmahmud.com";
+  const address =
+    settings.address ||
+    "Head Office: 28 Kazi Nazrul Islam Ave, Navana Zohura Square, Dhaka 1000";
+  const siteName = settings.siteName || "Tech Mahmud Ltd";
+
+  // Social Links
+  const facebookUrl =
+    settings.socialLinks?.facebook || "https://facebook.com";
+  const youtubeUrl =
+    settings.socialLinks?.youtube || "https://youtube.com";
+  const instagramUrl =
+    settings.socialLinks?.instagram || "https://instagram.com";
+  const whatsappNumber = settings.whatsapp || "8801783176838";
+  const whatsappUrl = whatsappNumber.startsWith("http")
+    ? whatsappNumber
+    : `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}`;
+
   return (
     <footer className="bg-[#081621] text-gray-400 pt-12 sm:pt-14 border-t border-gray-800 select-none">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* ========================================================= */}
         {/* TOP SECTION: SUPPORT, ABOUT US (3 COLS), STAY CONNECTED   */}
-        {/* Matches Star Tech layout from reference image             */}
         {/* ========================================================= */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12">
           {/* ----- COLUMN 1: SUPPORT (lg:col-span-3) ----- */}
@@ -30,39 +49,21 @@ const Footer: React.FC = () => {
 
             {/* Helpline Pill */}
             <a
-              href="tel:01783176838"
-              className="flex items-center gap-3.5 px-4 py-2.5 rounded-full border border-gray-800 hover:border-[#FF5A5A] transition-all group bg-[#0d1e2c]/50 mb-3 cursor-pointer"
+              href={`tel:${phone}`}
+              className="flex items-center gap-3.5 px-4 py-3 rounded-full border border-gray-800 hover:border-[#FF5A5A] transition-all group bg-[#0d1e2c]/50 mb-3 cursor-pointer"
             >
-              <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-gray-300 group-hover:text-[#FF5A5A] transition-colors shrink-0">
-                <FiPhoneCall size={17} />
+              <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-300 group-hover:text-[#FF5A5A] transition-colors shrink-0">
+                <FiPhoneCall size={18} />
               </div>
               <div className="flex flex-col text-left leading-tight">
                 <span className="text-[10px] text-gray-400 font-medium">
                   10 AM - 8 PM
                 </span>
                 <span className="text-base font-black text-[#FF5A5A] tracking-wider font-mono">
-                  01783176838
+                  {phone}
                 </span>
               </div>
             </a>
-
-            {/* Store Locator Pill */}
-            <Link
-              href="/contact"
-              className="flex items-center gap-3.5 px-4 py-2.5 rounded-full border border-gray-800 hover:border-[#FF5A5A] transition-all group bg-[#0d1e2c]/50 cursor-pointer"
-            >
-              <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-gray-300 group-hover:text-[#FF5A5A] transition-colors shrink-0">
-                <FiMapPin size={17} />
-              </div>
-              <div className="flex flex-col text-left leading-tight">
-                <span className="text-[10px] text-gray-400 font-medium">
-                  Store Locator
-                </span>
-                <span className="text-sm font-bold text-[#FF5A5A] tracking-wide">
-                  Find Our Stores
-                </span>
-              </div>
-            </Link>
           </div>
 
           {/* ----- COLUMN 2: ABOUT US (3 SUB-COLUMNS) (lg:col-span-6) ----- */}
@@ -146,14 +147,6 @@ const Footer: React.FC = () => {
                     Order Tracking
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className="hover:text-[#FF5A5A] transition-colors"
-                  >
-                    Store Locator
-                  </Link>
-                </li>
               </ul>
             </div>
           </div>
@@ -165,17 +158,17 @@ const Footer: React.FC = () => {
             </h3>
 
             <div className="space-y-2 text-xs">
-              <p className="font-bold text-white text-sm">Tech Mahmud Ltd</p>
+              <p className="font-bold text-white text-sm">{siteName}</p>
               <p className="text-gray-400 leading-relaxed text-[11px]">
-                Head Office: 28 Kazi Nazrul Islam Ave, Navana Zohura Square, Dhaka 1000
+                {address}
               </p>
               <div className="pt-1">
                 <span className="text-[11px] text-gray-400 block">Email:</span>
                 <a
-                  href="mailto:support@techmahmud.com"
+                  href={`mailto:${email}`}
                   className="text-xs font-semibold text-[#FF5A5A] hover:underline"
                 >
-                  support@techmahmud.com
+                  {email}
                 </a>
               </div>
             </div>
@@ -188,7 +181,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-gray-800/80 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           {/* App download section */}
           <div className="flex flex-col sm:flex-row items-center gap-3 text-xs text-gray-400 text-center sm:text-left">
-            <span>Experience Tech Mahmud App on your mobile:</span>
+            <span>Experience {siteName} on your mobile:</span>
             <div className="flex items-center gap-2">
               {/* Google Play badge */}
               <a
@@ -222,51 +215,60 @@ const Footer: React.FC = () => {
 
           {/* Social media circle buttons */}
           <div className="flex items-center gap-2.5">
-            <a
-              href="https://wa.me/8801783176838"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="WhatsApp"
-              className="w-9 h-9 rounded-full bg-gray-800/90 hover:bg-[#25D366] text-white flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-sm"
-            >
-              <BsWhatsapp size={15} />
-            </a>
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              className="w-9 h-9 rounded-full bg-gray-800/90 hover:bg-[#1877F2] text-white flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-sm"
-            >
-              <FaFacebookF size={14} />
-            </a>
-            <a
-              href="https://youtube.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="YouTube"
-              className="w-9 h-9 rounded-full bg-gray-800/90 hover:bg-[#FF0000] text-white flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-sm"
-            >
-              <FaYoutube size={15} />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="w-9 h-9 rounded-full bg-gray-800/90 hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] text-white flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-sm"
-            >
-              <FaInstagram size={15} />
-            </a>
+            {whatsappUrl && (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="w-9 h-9 rounded-full bg-gray-800/90 hover:bg-[#25D366] text-white flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-sm"
+              >
+                <BsWhatsapp size={15} />
+              </a>
+            )}
+            {facebookUrl && (
+              <a
+                href={facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="w-9 h-9 rounded-full bg-gray-800/90 hover:bg-[#1877F2] text-white flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-sm"
+              >
+                <FaFacebookF size={14} />
+              </a>
+            )}
+            {youtubeUrl && (
+              <a
+                href={youtubeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="w-9 h-9 rounded-full bg-gray-800/90 hover:bg-[#FF0000] text-white flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-sm"
+              >
+                <FaYoutube size={15} />
+              </a>
+            )}
+            {instagramUrl && (
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-9 h-9 rounded-full bg-gray-800/90 hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] text-white flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-sm"
+              >
+                <FaInstagram size={15} />
+              </a>
+            )}
           </div>
         </div>
 
         {/* ========================================================= */}
-        {/* BOTTOM SECTION: COPYRIGHT & BRANDING                      */}
+        {/* BOTTOM COPYRIGHT                                          */}
         {/* ========================================================= */}
-        <div className="border-t border-gray-800/80 py-4 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-2">
-          <p>© {new Date().getFullYear()} Tech Mahmud Ltd | All rights reserved</p>
-          <p>Powered By: Tech Mahmud</p>
+        <div className="border-t border-gray-800 py-6 text-center text-xs text-gray-500">
+          <p>
+            &copy; {new Date().getFullYear()} {siteName}. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

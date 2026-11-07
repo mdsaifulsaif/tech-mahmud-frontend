@@ -428,24 +428,3 @@ export const useSubscribeNewsletterMutation = () => {
 
   return [trigger, { ...mutation, isLoading: mutation.isPending }] as const;
 };
-
-export const useCreateComplaintMutation = () => {
-  const mutation = useMutation<any, Error, FormData>({
-    mutationFn: (formData: FormData) =>
-      fetch(`${API_BASE_URL}/complaints`, {
-        method: "POST",
-        body: formData,
-      }).then(async (res) => {
-        const data = await res.json();
-        if (!res.ok)
-          throw new Error(data?.message || "Failed to submit complaint");
-        return data;
-      }),
-  });
-
-  const trigger = (data: FormData) => ({
-    unwrap: () => mutation.mutateAsync(data),
-  });
-
-  return [trigger, { ...mutation, isLoading: mutation.isPending }] as const;
-};

@@ -23,6 +23,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { useProductsQuery } from "@/lib/api/queries";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
+import { useGetSettingsQuery } from "@/redux/api/settingsApi";
 
 interface MinHeaderProps {
   onToggleMobile?: () => void;
@@ -38,6 +39,8 @@ const MinHeader = ({ onToggleMobile }: MinHeaderProps) => {
 
   const { totalItems: cartCount, totalPrice: cartTotal, openMiniCart } = useCart();
   const { totalWishlistItems: wishlistCount } = useWishlist();
+  const { data: settingsResponse } = useGetSettingsQuery();
+  const settings = settingsResponse?.data;
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -240,25 +243,32 @@ const MinHeader = ({ onToggleMobile }: MinHeaderProps) => {
             </button>
 
             <Link href="/" className="flex items-center gap-2 shrink-0 group">
-              {/* Star Tech aesthetic logo */}
-              <div className="flex items-center gap-2 select-none">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#FF5A5A] to-[#FF8B5A] flex items-center justify-center font-black text-white text-lg tracking-wider shadow-md shadow-[#FF5A5A]/30">
-                  TM
-                </div>
-                <div className="flex flex-col leading-none">
-                  <div className="flex items-center">
-                    <span className="text-lg sm:text-xl font-black tracking-tight text-white">
-                      TECH
-                    </span>
-                    <span className="text-lg sm:text-xl font-black tracking-tight text-[#FF5A5A] ml-1">
-                      MAHMUD
+              {settings?.logo ? (
+                <img
+                  src={settings.logo}
+                  alt={settings?.siteName || "Tech Mahmud"}
+                  className="h-8 sm:h-9 w-auto max-w-[160px] object-contain select-none"
+                />
+              ) : (
+                <div className="flex items-center gap-2 select-none">
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#FF5A5A] to-[#FF8B5A] flex items-center justify-center font-black text-white text-lg tracking-wider shadow-md shadow-[#FF5A5A]/30">
+                    TM
+                  </div>
+                  <div className="flex flex-col leading-none">
+                    <div className="flex items-center">
+                      <span className="text-lg sm:text-xl font-black tracking-tight text-white">
+                        {settings?.siteName?.split(" ")[0] || "TECH"}
+                      </span>
+                      <span className="text-lg sm:text-xl font-black tracking-tight text-[#FF5A5A] ml-1">
+                        {settings?.siteName?.split(" ").slice(1).join(" ") || "MAHMUD"}
+                      </span>
+                    </div>
+                    <span className="text-[9px] font-bold text-gray-400 tracking-widest uppercase">
+                      {settings?.tagline || "Tech & Lifestyle"}
                     </span>
                   </div>
-                  <span className="text-[9px] font-bold text-gray-400 tracking-widest uppercase">
-                    Tech & Lifestyle
-                  </span>
                 </div>
-              </div>
+              )}
             </Link>
           </div>
 

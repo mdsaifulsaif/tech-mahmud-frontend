@@ -99,8 +99,8 @@ export const baseApi = createApi({
     tagTypes: [
         'Stats', 'Orders', 'Products', 'Users', 'Analytics', 'PageContent',
         'SiteContent', 'Categories', 'Payments', 'Shipping', 'Coupons',
-        'Reviews', 'Brands', 'Complaints', 'Area', 'Rider',
-        'RiderApplication', 'User', 'StoreSetting', 'Riders', 'Complaint', 'RiderProfile','Brand','Area','Dashboard','Payout',
+        'Reviews', 'Brands', 'Area', 'Rider',
+        'RiderApplication', 'User', 'StoreSetting', 'Riders', 'RiderProfile','Brand','Area','Dashboard','Payout',
         'Subscribers', 'AreaRequests', 'Banners', 'Subscriptions', 'Chat'
     ],
     endpoints: () => ({}),

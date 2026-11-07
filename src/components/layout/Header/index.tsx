@@ -9,7 +9,6 @@ import CategoryNav from "./CategoryNav";
 import MobileNav from "./MobileNav";
 import { FiX } from "react-icons/fi";
 import { useUI } from "@/context/UIContext";
-import { MessageSquareWarning } from "lucide-react";
 
 const HEADER_STICKY_OFFSET = 0;
 
@@ -19,7 +18,6 @@ const Header: React.FC = () => {
     isMobileMenuOpen,
     toggleMobileMenu,
     closeMobileMenu,
-    openComplainModal,
   } = useUI();
 
   useEffect(() => {
@@ -96,14 +94,6 @@ const Header: React.FC = () => {
             <div className="flex items-center gap-2">
               <h2 className="text-xl font-bold text-gray-900">Menu</h2>
             </div>
-
-            <button
-              onClick={openComplainModal}
-              className="flex items-center gap-1.5 text-xs font-semibold text-gray-700 hover:text-[var(--color-primary)] transition-all bg-gray-50 px-2.5 py-1.5 rounded-lg border border-gray-200/60"
-            >
-              <MessageSquareWarning size={16} className="text-[#FF5A5A]" />
-              <span>Have Complaint?</span>
-            </button>
 
             <button
               onClick={handleCloseMobileMenu}
