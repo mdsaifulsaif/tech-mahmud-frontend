@@ -406,28 +406,6 @@ const Hero: React.FC<HeroProps> = ({ initialBanners }) => {
           </div>
         </div>
       </div>
-
-      {/* ===== ANNOUNCEMENT / STATUS BAR (Star Tech style ticker as in reference image) ===== */}
-      <div className="hidden sm:flex mt-3.5 bg-white border border-gray-200/80 rounded-xl px-4 py-2.5 shadow-2xs items-center justify-between text-xs text-gray-700 overflow-hidden">
-        <div className="flex items-center gap-2 text-gray-800 shrink-0 font-bold">
-          <span className="w-2 h-2 rounded-full bg-[#FF5A5A] animate-pulse" />
-          <span className="text-[#FF5A5A] uppercase tracking-wider text-[11px] font-black">
-            Notice:
-          </span>
-        </div>
-        <div className="overflow-hidden flex-1 mx-3">
-          <p className="truncate text-gray-600 font-medium">
-            Thursday, 05 November, All our branches are open. Additionally, online delivery is operational nationwide with genuine warranty.
-          </p>
-        </div>
-        <Link
-          href="/contact"
-          className="shrink-0 text-[11px] font-bold text-[#FF5A5A] hover:text-[#FF8B5A] hover:underline flex items-center gap-1 transition-colors"
-        >
-          <span>Helpline 01783176838</span>
-          <FiArrowRight size={12} />
-        </Link>
-      </div>
     </div>
   );
 };
