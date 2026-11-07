@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import ProductCard from "../shared/ProductCard";
 import { useCategoriesQuery } from "@/lib/api/queries";
 
-// Initial Category Pills matching user's reference image
+// Initial Category Pills
 const trendingCategories = [
   { id: "bags-luggage", name: "Bags & Luggage", slug: "bags-luggage" },
   { id: "watch", name: "Watch", slug: "watch" },
@@ -16,148 +16,6 @@ const trendingCategories = [
   { id: "smartphones", name: "Smartphones", slug: "smartphones" },
   { id: "accessories", name: "Accessories", slug: "accessories" },
 ];
-
-// Fallback products for categories in case DB is empty for a specific category
-const categoryFallbackProducts: Record<string, any[]> = {
-  "bags-luggage": [
-    {
-      _id: "trend_bag_1",
-      name: "Urban Leather Laptop Crossbody Bag",
-      slug: "urban-leather-laptop-bag",
-      regularPrice: 1500,
-      salePrice: 900,
-      thumbnail: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80",
-      isNew: true,
-      colors: ["#1e293b", "#3b82f6"],
-    },
-    {
-      _id: "trend_bag_2",
-      name: "Urban Lightweight Zipper Handbags",
-      slug: "urban-lightweight-zipper-handbag",
-      regularPrice: 1700,
-      salePrice: 1100,
-      thumbnail: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&q=80",
-      isNew: true,
-      colors: ["#0f172a"],
-    },
-    {
-      _id: "trend_bag_3",
-      name: "Urban Men Crossbody Messenger Bag",
-      slug: "urban-men-crossbody-messenger",
-      regularPrice: 1000,
-      salePrice: 600,
-      thumbnail: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500&q=80",
-      isNew: true,
-      colors: ["#1e293b", "#2563eb"],
-    },
-    {
-      _id: "trend_bag_4",
-      name: "Urban Men Crossbody Compact Bag",
-      slug: "urban-men-compact-crossbody",
-      regularPrice: 1000,
-      salePrice: 600,
-      thumbnail: "https://images.unsplash.com/photo-1577733966973-d680bffd2e80?w=500&q=80",
-      isNew: true,
-      colors: ["#0f172a", "#1d4ed8"],
-    },
-    {
-      _id: "trend_bag_5",
-      name: "Urban Lightweight School & Travel Backpack",
-      slug: "urban-lightweight-school-backpack",
-      regularPrice: 1500,
-      salePrice: 999,
-      thumbnail: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?w=500&q=80",
-      isNew: true,
-      colors: ["#18181b", "#ef4444"],
-    },
-    {
-      _id: "trend_bag_6",
-      name: "Urban Shoulder Bag Fashion Women",
-      slug: "urban-shoulder-bag-fashion",
-      regularPrice: 1500,
-      salePrice: 999,
-      thumbnail: "https://images.unsplash.com/photo-1591561954557-26941169b49e?w=500&q=80",
-      isNew: true,
-      colors: ["#94a3b8", "#1e1e24", "#dc2626"],
-    },
-  ],
-  watch: [
-    {
-      _id: "trend_watch_1",
-      name: "Poedagar Men Luxury Quartz Chronograph",
-      slug: "poedagar-men-luxury-quartz",
-      regularPrice: 2050,
-      salePrice: 1850,
-      thumbnail: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&q=80",
-      isNew: true,
-      colors: ["#0f172a", "#e2e8f0"],
-    },
-    {
-      _id: "trend_watch_2",
-      name: "Classic Steel Strap Wedding Men Watch",
-      slug: "classic-steel-strap-wedding-watch",
-      regularPrice: 2400,
-      salePrice: 1790,
-      thumbnail: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&q=80",
-      isNew: true,
-      colors: ["#94a3b8", "#1e293b"],
-    },
-    {
-      _id: "trend_watch_3",
-      name: "Smart Fitness Tracker OLED Display Watch",
-      slug: "smart-fitness-tracker-oled",
-      regularPrice: 2200,
-      salePrice: 1650,
-      thumbnail: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500&q=80",
-      isNew: true,
-      colors: ["#18181b", "#3b82f6"],
-    },
-  ],
-  "shaving-trimming": [
-    {
-      _id: "trend_trim_1",
-      name: "Vintage T9 Professional Hair Trimmer",
-      slug: "vintage-t9-hair-trimmer",
-      regularPrice: 1200,
-      salePrice: 850,
-      thumbnail: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=500&q=80",
-      isNew: true,
-      colors: ["#d97706", "#18181b"],
-    },
-    {
-      _id: "trend_trim_2",
-      name: "Rechargeable Electric Shaver for Men",
-      slug: "rechargeable-electric-shaver",
-      regularPrice: 1600,
-      salePrice: 1150,
-      thumbnail: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&q=80",
-      isNew: true,
-      colors: ["#0f172a"],
-    },
-  ],
-  headphones: [
-    {
-      _id: "trend_audio_1",
-      name: "Active Noise Cancelling Wireless Headphones",
-      slug: "active-noise-cancelling-headphones",
-      regularPrice: 2800,
-      salePrice: 2100,
-      thumbnail: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
-      isNew: true,
-      colors: ["#18181b", "#ffffff"],
-    },
-    {
-      _id: "trend_audio_2",
-      name: "TWS Wireless Bluetooth Earbuds 5.3",
-      slug: "tws-wireless-earbuds-53",
-      regularPrice: 1400,
-      salePrice: 950,
-      thumbnail: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80",
-      isNew: true,
-      colors: ["#0f172a", "#3b82f6"],
-    },
-  ],
-};
 
 interface TrendingNowProps {
   initialBanners?: any[];
@@ -227,11 +85,7 @@ export default function TrendingNow({
   });
 
   const apiProducts = apiResponse?.data || [];
-  const displayProducts =
-    apiProducts.length > 0
-      ? apiProducts
-      : categoryFallbackProducts[activeTab] ||
-        categoryFallbackProducts["bags-luggage"];
+  const displayProducts = apiProducts;
 
   // Handle smooth scroll
   const handleScroll = (direction: "left" | "right") => {

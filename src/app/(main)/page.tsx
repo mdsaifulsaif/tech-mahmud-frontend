@@ -42,16 +42,18 @@ export default async function Home() {
     <>
       <Hero initialBanners={bannersData?.data || []} />
       <HomeCategory initialCategories={categoriesData?.data} />
-      <NewCollection initialProducts={newCollectionData?.data} />
+      <FeaturedProducts initialProducts={featuredData?.data} />
       <PromotionalBanners initialBanners={bannersData?.data || []} />
+      <NewCollection initialProducts={newCollectionData?.data} />
+      <BottomPromoSection initialBanners={bannersData?.data || []} />
       <TrendingNow
         initialBanners={bannersData?.data || []}
         initialTrendingCategories={trendingCategoriesData?.data || []}
         allCategories={categoriesData?.data || []}
       />
       <PromotionalTwoBanners initialBanners={bannersData?.data || []} />
-      <FeaturedProducts initialProducts={featuredData?.data} />
-      <BottomPromoSection initialBanners={bannersData?.data || []} />
+
+
 
       {/* <TrustedBrands initialBrands={brandsData?.data} /> */}
       {/* <HappyCustomers initialReviews={reviewsData?.data} /> */}
