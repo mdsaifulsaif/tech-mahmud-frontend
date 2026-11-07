@@ -92,31 +92,31 @@ const Header: React.FC = () => {
           </div> */}
 
           {/* Mobile Menu Header */}
-<div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-4">
-  <div className="flex items-center gap-2">
- 
-    <h2 className="text-xl font-bold">Menu</h2>
-  </div>
+          <div className="flex items-center justify-between pb-3.5 border-b border-gray-100 mb-4 shrink-0">
+            <div className="flex items-center gap-2">
+              <h2 className="text-xl font-bold text-gray-900">Menu</h2>
+            </div>
 
-  <button
-    onClick={openComplainModal}
-    className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[var(--color-primary)] transition-all"
-  >
-    <MessageSquareWarning size={18} />
-    <span>Have Complaint?</span>
-  </button>
+            <button
+              onClick={openComplainModal}
+              className="flex items-center gap-1.5 text-xs font-semibold text-gray-700 hover:text-[var(--color-primary)] transition-all bg-gray-50 px-2.5 py-1.5 rounded-lg border border-gray-200/60"
+            >
+              <MessageSquareWarning size={16} className="text-[#FF5A5A]" />
+              <span>Have Complaint?</span>
+            </button>
 
-  <button
-    onClick={handleCloseMobileMenu}
-    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-    aria-label="Close Menu"
-  >
-    <FiX size={24} />
-  </button>
-</div>
-          
+            <button
+              onClick={handleCloseMobileMenu}
+              className="p-1.5 hover:bg-gray-100 rounded-full transition-colors text-gray-600"
+              aria-label="Close Menu"
+            >
+              <FiX size={22} />
+            </button>
+          </div>
 
-          <MobileNav onClose={handleCloseMobileMenu} />
+          <div className="flex-1 w-full">
+            <MobileNav onClose={handleCloseMobileMenu} />
+          </div>
         </aside>
       </div>
     </>
