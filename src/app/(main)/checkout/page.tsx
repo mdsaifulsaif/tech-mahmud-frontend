@@ -23,6 +23,8 @@ import {
   FiAlertCircle,
   FiArrowRight,
   FiDollarSign,
+  FiChevronDown,
+  FiSearch,
 } from "react-icons/fi";
 import { FaMoneyBillWave, FaCreditCard, FaStore } from "react-icons/fa";
 import toast from "react-hot-toast";
@@ -139,6 +141,29 @@ function CheckoutContent() {
   const [deliveryMethod, setDeliveryMethod] = useState<"courier" | "pickup">("courier");
   const [deliveryZone, setDeliveryZone] = useState<"local" | "nationwide">("local");
   const [district, setDistrict] = useState("Barisal");
+  const [isDistrictOpen, setIsDistrictOpen] = useState(false);
+  const [districtQuery, setDistrictQuery] = useState("");
+  const districtDropdownRef = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        districtDropdownRef.current &&
+        !districtDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDistrictOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const filteredDistricts = useMemo(() => {
+    if (!districtQuery.trim()) return BD_DISTRICTS;
+    return BD_DISTRICTS.filter((d) =>
+      d.toLowerCase().includes(districtQuery.toLowerCase().trim())
+    );
+  }, [districtQuery]);
   const [streetAddress, setStreetAddress] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [orderComments, setOrderComments] = useState("");
@@ -479,138 +504,90 @@ function CheckoutContent() {
               </div>
             </div>
 
-            {/* 2. DELIVERY METHOD (Star Tech Signature) */}
+            {/* 2. DELIVERY METHOD (Home Courier Delivery) */}
             <div className="bg-white p-5 sm:p-6 rounded-2xl border border-gray-200/90 shadow-2xs space-y-4">
-              <div className="flex items-center gap-2.5 pb-3 border-b border-gray-100">
-                <span className="w-7 h-7 rounded-full bg-blue-50 text-[#2563EB] flex items-center justify-center font-black text-xs">
-                  2
+              <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-7 h-7 rounded-full bg-blue-50 text-[#2563EB] flex items-center justify-center font-black text-xs">
+                    2
+                  </span>
+                  <h2 className="text-base font-bold text-gray-900">
+                    Delivery Method (ডেলিভারি পদ্ধতি)
+                  </h2>
+                </div>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-[#2563EB]">
+                  <FiTruck size={14} /> Home Delivery
                 </span>
-                <h2 className="text-base font-bold text-gray-900">
-                  Delivery Method (ডেলিভারি পদ্ধতি)
-                </h2>
-              </div>
-
-              {/* Courier Delivery vs Store Pickup Tabs */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setDeliveryMethod("courier")}
-                  className={`p-3.5 rounded-xl border-2 text-left transition flex items-start gap-3 ${
-                    deliveryMethod === "courier"
-                      ? "border-[#2563EB] bg-blue-50/40 shadow-xs"
-                      : "border-gray-200 hover:border-gray-300 bg-white"
-                  }`}
-                >
-                  <FiTruck className={`mt-0.5 shrink-0 ${deliveryMethod === "courier" ? "text-[#2563EB]" : "text-gray-400"}`} size={20} />
-                  <div>
-                    <span className="text-sm font-bold text-gray-900 block">Home / Courier Delivery</span>
-                    <span className="text-xs text-gray-500">Delivered directly to your doorstep</span>
-                  </div>
-                </button>
-
-                {deliverySettings.isStorePickupActive && (
-                  <button
-                    type="button"
-                    onClick={() => setDeliveryMethod("pickup")}
-                    className={`p-3.5 rounded-xl border-2 text-left transition flex items-start gap-3 ${
-                      deliveryMethod === "pickup"
-                        ? "border-[#2563EB] bg-blue-50/40 shadow-xs"
-                        : "border-gray-200 hover:border-gray-300 bg-white"
-                    }`}
-                  >
-                    <FaStore className={`mt-0.5 shrink-0 ${deliveryMethod === "pickup" ? "text-[#2563EB]" : "text-gray-400"}`} size={18} />
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-bold text-gray-900 block">Store Pickup</span>
-                        <span className="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-100 text-emerald-800">FREE</span>
-                      </div>
-                      <span className="text-xs text-gray-500">Collect from our outlet / showroom</span>
-                    </div>
-                  </button>
-                )}
               </div>
 
               {/* Courier Delivery Zone Selection (Inside Base vs Outside Base) */}
-              {deliveryMethod === "courier" && (
-                <div className="pt-2 space-y-2.5">
-                  <span className="block text-xs font-bold text-gray-700 uppercase tracking-wider">
-                    Select Delivery Zone:
-                  </span>
+              <div className="space-y-2.5">
+                <span className="block text-xs font-bold text-gray-700 uppercase tracking-wider">
+                  Select Delivery Zone:
+                </span>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <label
-                      className={`p-3.5 rounded-xl border cursor-pointer transition flex items-start justify-between ${
-                        deliveryZone === "local"
-                          ? "border-[#2563EB] bg-blue-50/60 ring-2 ring-[#2563EB]/20"
-                          : "border-gray-200 hover:border-gray-300 bg-gray-50/40"
-                      }`}
-                    >
-                      <div className="flex items-start gap-2.5">
-                        <input
-                          type="radio"
-                          name="deliveryZone"
-                          value="local"
-                          checked={deliveryZone === "local"}
-                          onChange={() => setDeliveryZone("local")}
-                          className="mt-1 text-[#2563EB]"
-                        />
-                        <div>
-                          <span className="text-xs sm:text-sm font-bold text-gray-900 block">
-                            Inside {baseLocation} (লোকাল)
-                          </span>
-                          <span className="text-[11px] text-gray-500">
-                            {deliverySettings.insideEstimatedDays}
-                          </span>
-                        </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <label
+                    className={`p-3.5 rounded-xl border cursor-pointer transition flex items-start justify-between ${
+                      deliveryZone === "local"
+                        ? "border-[#2563EB] bg-blue-50/60 ring-2 ring-[#2563EB]/20"
+                        : "border-gray-200 hover:border-gray-300 bg-gray-50/40"
+                    }`}
+                  >
+                    <div className="flex items-start gap-2.5">
+                      <input
+                        type="radio"
+                        name="deliveryZone"
+                        value="local"
+                        checked={deliveryZone === "local"}
+                        onChange={() => setDeliveryZone("local")}
+                        className="mt-1 text-[#2563EB]"
+                      />
+                      <div>
+                        <span className="text-xs sm:text-sm font-bold text-gray-900 block">
+                          Inside {baseLocation} (লোকাল)
+                        </span>
+                        <span className="text-[11px] text-gray-500">
+                          {deliverySettings.insideEstimatedDays}
+                        </span>
                       </div>
-                      <span className="text-sm font-black text-gray-900">
-                        ৳{insideCharge}
-                      </span>
-                    </label>
+                    </div>
+                    <span className="text-sm font-black text-gray-900">
+                      ৳{insideCharge}
+                    </span>
+                  </label>
 
-                    <label
-                      className={`p-3.5 rounded-xl border cursor-pointer transition flex items-start justify-between ${
-                        deliveryZone === "nationwide"
-                          ? "border-[#2563EB] bg-blue-50/60 ring-2 ring-[#2563EB]/20"
-                          : "border-gray-200 hover:border-gray-300 bg-gray-50/40"
-                      }`}
-                    >
-                      <div className="flex items-start gap-2.5">
-                        <input
-                          type="radio"
-                          name="deliveryZone"
-                          value="nationwide"
-                          checked={deliveryZone === "nationwide"}
-                          onChange={() => setDeliveryZone("nationwide")}
-                          className="mt-1 text-[#2563EB]"
-                        />
-                        <div>
-                          <span className="text-xs sm:text-sm font-bold text-gray-900 block">
-                            Outside {baseLocation} (দেশজুড়ে)
-                          </span>
-                          <span className="text-[11px] text-gray-500">
-                            {deliverySettings.outsideEstimatedDays}
-                          </span>
-                        </div>
+                  <label
+                    className={`p-3.5 rounded-xl border cursor-pointer transition flex items-start justify-between ${
+                      deliveryZone === "nationwide"
+                        ? "border-[#2563EB] bg-blue-50/60 ring-2 ring-[#2563EB]/20"
+                        : "border-gray-200 hover:border-gray-300 bg-gray-50/40"
+                    }`}
+                  >
+                    <div className="flex items-start gap-2.5">
+                      <input
+                        type="radio"
+                        name="deliveryZone"
+                        value="nationwide"
+                        checked={deliveryZone === "nationwide"}
+                        onChange={() => setDeliveryZone("nationwide")}
+                        className="mt-1 text-[#2563EB]"
+                      />
+                      <div>
+                        <span className="text-xs sm:text-sm font-bold text-gray-900 block">
+                          Outside {baseLocation} (দেশজুড়ে)
+                        </span>
+                        <span className="text-[11px] text-gray-500">
+                          {deliverySettings.outsideEstimatedDays}
+                        </span>
                       </div>
-                      <span className="text-sm font-black text-gray-900">
-                        ৳{outsideCharge}
-                      </span>
-                    </label>
-                  </div>
+                    </div>
+                    <span className="text-sm font-black text-gray-900">
+                      ৳{outsideCharge}
+                    </span>
+                  </label>
                 </div>
-              )}
-
-              {/* Store Pickup Notice */}
-              {deliveryMethod === "pickup" && (
-                <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs space-y-1">
-                  <span className="font-bold block">📍 Pickup Address:</span>
-                  <p>{deliverySettings.storePickupAddress}</p>
-                  <span className="text-[11px] text-emerald-700 block pt-1">
-                    Please bring your order confirmation SMS / email when collecting your item.
-                  </span>
-                </div>
-              )}
+              </div>
             </div>
 
             {/* 3. DELIVERY ADDRESS (Star Tech Exact Fields) */}
@@ -640,21 +617,77 @@ function CheckoutContent() {
                     />
                   </div>
 
-                  <div>
+                  <div className="relative" ref={districtDropdownRef}>
                     <label className="block text-xs font-bold text-gray-700 mb-1.5">
                       City / District (জেলা) <span className="text-red-500">*</span>
                     </label>
-                    <select
-                      value={district}
-                      onChange={(e) => setDistrict(e.target.value)}
-                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-bold text-gray-900 focus:outline-none focus:border-[#2563EB] focus:bg-white transition"
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsDistrictOpen((prev) => !prev);
+                        setDistrictQuery("");
+                      }}
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-bold text-gray-900 focus:outline-none focus:border-[#2563EB] focus:bg-white transition flex items-center justify-between text-left cursor-pointer shadow-xs"
                     >
-                      {BD_DISTRICTS.map((d) => (
-                        <option key={d} value={d}>
-                          {d}
-                        </option>
-                      ))}
-                    </select>
+                      <span className="flex items-center gap-2">
+                        <FiMapPin className="text-[#2563EB] shrink-0" size={16} />
+                        <span>{district}</span>
+                      </span>
+                      <FiChevronDown
+                        className={`text-gray-400 transition-transform duration-200 ${
+                          isDistrictOpen ? "rotate-180" : ""
+                        }`}
+                        size={18}
+                      />
+                    </button>
+
+                    {isDistrictOpen && (
+                      <div className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-hidden animate-in fade-in duration-150">
+                        <div className="p-2 border-b border-gray-100 bg-gray-50/80">
+                          <div className="relative">
+                            <FiSearch className="absolute left-2.5 top-2.5 text-gray-400" size={14} />
+                            <input
+                              type="text"
+                              value={districtQuery}
+                              onChange={(e) => setDistrictQuery(e.target.value)}
+                              placeholder="Search district..."
+                              autoFocus
+                              className="w-full pl-8 pr-3 py-1.5 text-xs bg-white border border-gray-200 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#2563EB]"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="max-h-56 overflow-y-auto divide-y divide-gray-50 scrollbar-thin scrollbar-thumb-gray-200">
+                          {filteredDistricts.length > 0 ? (
+                            filteredDistricts.map((d) => {
+                              const isSelected = d.toLowerCase() === district.toLowerCase();
+                              return (
+                                <button
+                                  key={d}
+                                  type="button"
+                                  onClick={() => {
+                                    setDistrict(d);
+                                    setIsDistrictOpen(false);
+                                  }}
+                                  className={`w-full px-3.5 py-2.5 text-xs sm:text-sm text-left flex items-center justify-between transition cursor-pointer ${
+                                    isSelected
+                                      ? "bg-blue-50 text-[#2563EB] font-bold"
+                                      : "text-gray-700 hover:bg-gray-50 font-medium"
+                                  }`}
+                                >
+                                  <span>{d}</span>
+                                  {isSelected && <FiCheck className="text-[#2563EB]" size={16} />}
+                                </button>
+                              );
+                            })
+                          ) : (
+                            <div className="py-4 text-center text-xs text-gray-400">
+                              No district found
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   <div>
@@ -690,7 +723,7 @@ function CheckoutContent() {
             <div className="bg-white p-5 sm:p-6 rounded-2xl border border-gray-200/90 shadow-2xs space-y-4">
               <div className="flex items-center gap-2.5 pb-3 border-b border-gray-100">
                 <span className="w-7 h-7 rounded-full bg-blue-50 text-[#2563EB] flex items-center justify-center font-black text-xs">
-                  {deliveryMethod === "courier" ? "4" : "3"}
+                  4
                 </span>
                 <h2 className="text-base font-bold text-gray-900">
                   Payment Method (পেমেন্ট পদ্ধতি)
@@ -910,9 +943,7 @@ function CheckoutContent() {
                 <div className="flex items-center justify-between">
                   <span>
                     Delivery Charge (
-                    {deliveryMethod === "pickup"
-                      ? "Store Pickup"
-                      : deliveryZone === "local"
+                    {deliveryZone === "local"
                       ? `Inside ${baseLocation}`
                       : `Outside ${baseLocation}`}
                     )

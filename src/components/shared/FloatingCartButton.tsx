@@ -97,26 +97,33 @@ const FloatingCartButton: React.FC = () => {
           >
             Confirm Order
           </button>
-        ) : (
-          <button
-            type="button"
-            onClick={totalItems === 0 ? openMobileMenu : openMiniCart}
+        ) : totalItems > 0 ? (
+          <Link
+            href="/checkout"
             className="flex-1 py-2.5 bg-gradient-to-r from-[#FF5A5A] to-[#FF8B5A] text-white font-bold text-xs uppercase tracking-wider rounded-lg flex items-center justify-between px-3.5 active:scale-95 transition-all shadow-md"
           >
-            <span>{totalItems === 0 ? "Browse Shop" : "View Cart"}</span>
+            <span>Order Now</span>
             <span className="font-mono text-xs font-black">৳{totalPrice.toLocaleString()}</span>
-          </button>
+          </Link>
+        ) : (
+          <Link
+            href="/shop"
+            className="flex-1 py-2.5 bg-gradient-to-r from-[#FF5A5A] to-[#FF8B5A] text-white font-bold text-xs uppercase tracking-wider rounded-lg flex items-center justify-between px-3.5 active:scale-95 transition-all shadow-md"
+          >
+            <span>Browse Shop</span>
+            <span className="font-mono text-xs font-black">৳0</span>
+          </Link>
         )}
 
         <button
           type="button"
           onClick={openMiniCart}
-          className="relative w-10 h-10 flex items-center justify-center rounded-xl border border-gray-700 bg-white/5 text-white hover:bg-white/10 transition-all shrink-0"
+          className="relative w-10 h-10 flex items-center justify-center rounded-xl border border-gray-700 bg-white/5 text-white hover:bg-white/10 active:scale-95 transition-all shrink-0 cursor-pointer"
           aria-label="Open Cart"
         >
-          <FiShoppingBag size={18} className="text-[#FF5A5A]" />
+          <FiShoppingBag size={19} className="text-[#FF5A5A]" />
           {totalItems > 0 && (
-            <span className="absolute -top-1 -right-1 min-w-[18px] h-4 px-1 bg-[#FF5A5A] text-white text-[10px] font-black rounded-full flex items-center justify-center border border-white">
+            <span className="absolute -top-1 -right-1 min-w-[18px] h-4.5 px-1 bg-[#FF5A5A] text-white text-[10px] font-black rounded-full flex items-center justify-center border border-white shadow-sm">
               {totalItems}
             </span>
           )}
